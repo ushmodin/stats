@@ -1,0 +1,28 @@
+group 'ru.etraffic'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.0.1"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'spring-boot'
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.1"
+    compile "org.springframework.boot:spring-boot-starter"
+    compile "org.springframework.boot:spring-boot-starter-ws"
+    compile "org.apache.cxf:cxf-spring-boot-starter-jaxrs:3.1.7"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+}
