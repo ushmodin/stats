@@ -31,5 +31,5 @@ data class Country (
     var iso3: String? = null,
 
     @Enumerated(javax.persistence.EnumType.STRING)
-    var status: EntityStatus? = EntityStatus.ACTIVE
+    var status: EntityStatus? = EntityStatus.A
 )

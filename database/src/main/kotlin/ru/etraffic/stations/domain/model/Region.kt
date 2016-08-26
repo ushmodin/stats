@@ -28,9 +28,9 @@ data class Region(
         @ManyToOne(fetch = javax.persistence.FetchType.LAZY, optional = false)
         @JoinColumn(name = "country_id")
         var country: Country? = null,
-        @Column(name = "modified", nullable = false)
+        @Column(name = "updated", nullable = false)
         var updated: Date? = Date(),
         @Enumerated(javax.persistence.EnumType.STRING)
-        var status: EntityStatus? = EntityStatus.ACTIVE
+        var status: EntityStatus? = EntityStatus.A
 
 )

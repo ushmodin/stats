@@ -27,9 +27,9 @@ data class Area (
         @ManyToOne(fetch = javax.persistence.FetchType.LAZY, optional = false)
         @JoinColumn(name = "region_id")
         var region: Region? = null,
-        @Column(name = "modified", nullable = false)
+        @Column(name = "updated", nullable = false)
         var updated: Date? = Date(),
         @Enumerated(javax.persistence.EnumType.STRING)
-        var status: EntityStatus? = EntityStatus.ACTIVE
+        var status: EntityStatus? = EntityStatus.A
 
 )

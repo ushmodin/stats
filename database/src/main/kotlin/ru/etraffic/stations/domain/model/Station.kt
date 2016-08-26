@@ -50,9 +50,9 @@ data class Station (
         @Column()
         val longitude: BigDecimal? = null,
 
-        @Column(name = "modified", nullable = false)
+        @Column(name = "updated", nullable = false)
         var updated: Date? = Date(),
 
         @Enumerated(javax.persistence.EnumType.STRING)
-        var status: EntityStatus? = EntityStatus.ACTIVE
+        var status: EntityStatus? = EntityStatus.A
 )

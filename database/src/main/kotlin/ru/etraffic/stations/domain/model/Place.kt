@@ -33,9 +33,9 @@ data class Place (
         @ManyToOne(fetch = javax.persistence.FetchType.LAZY)
         @JoinColumn(name = "city_id")
         var city: Place? = null,
-        @Column(name = "modified", nullable = false)
+        @Column(name = "updated", nullable = false)
         var updated: Date? = Date(),
         @Enumerated(javax.persistence.EnumType.STRING)
-        var status: EntityStatus? = EntityStatus.ACTIVE
+        var status: EntityStatus? = EntityStatus.A
 
 )

@@ -16,7 +16,7 @@ data class AvsHost(
         var id: Long? = null,
         @Column(name = "name", length = 120, nullable = false)
         var name: String? = null,
-        @Column(name = "desc", length = 120)
+        @Column(name = "descr", length = 120)
         var description: String? = null,
         @Column(name = "inn", length = 12)
         var inn: String? = null,

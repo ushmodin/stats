@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner
  */
 
 @RunWith(SpringRunner::class)
-@SpringBootTest(classes = arrayOf(ru.etraffic.stations.domain.Configuration::class))
+@SpringBootTest(classes = arrayOf(Configuration::class))
 open class SpringContextTest {
 
     @Test
@@ -22,8 +22,3 @@ open class SpringContextTest {
     }
 }
 
-@SpringBootApplication
-@EnableJpaRepositories
-open class Configuration {
-
-}
