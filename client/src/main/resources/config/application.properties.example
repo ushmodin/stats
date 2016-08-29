@@ -1,0 +1,6 @@
+jdbc.url=jdbc:oracle:thin:@0.0.0.0:1521:xe
+jdbc.nlsLanguage=AMERICAN
+jdbc.nlsTerritory=RUSSIA
+jdbc.nlsNumericCharacters=.,
+jdbc.username=
+jdbc.password=
