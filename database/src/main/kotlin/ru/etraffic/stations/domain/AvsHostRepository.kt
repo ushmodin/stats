@@ -9,4 +9,6 @@ import ru.etraffic.stations.domain.model.AvsHost
  * @since 26.08.2016 17:52
  */
 
-interface AvsHostRepository: JpaRepository<AvsHost, Long>
+interface AvsHostRepository: JpaRepository<AvsHost, Long> {
+    fun findByGuid(host: String): AvsHost
+}

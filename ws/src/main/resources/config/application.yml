@@ -1,3 +1,6 @@
-cxf:
-  jaxrs:
-    component-scan: true
+spring:
+  datasource:
+    url: jdbc:postgresql://192.168.1.60:5432/fias
+    username: fias
+    password: fias
+    driverClassName: org.postgresql.Driver
