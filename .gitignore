@@ -3,4 +3,5 @@ out/
 .gradle/
 build/
 database/build/
+client/build/
 application.properties
