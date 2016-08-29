@@ -1,16 +1,12 @@
 package ru.etraffic.stations.ws
 
-import org.hibernate.engine.jdbc.batch.spi.Batch
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.etraffic.stations.domain.AvsHostRepository
-import ru.etraffic.stations.domain.StationBatchRepository
-import ru.etraffic.stations.domain.StationItemRepository
+import ru.etraffic.stations.domain.StationRequestRepository
 import ru.etraffic.stations.domain.model.AvsHost
-import ru.etraffic.stations.domain.model.Station
-import ru.etraffic.stations.domain.model.StationBatch
-import ru.etraffic.stations.domain.model.StationItem
+import ru.etraffic.stations.domain.model.StationRequest
 import ru.etraffic.stations.ws.model.*
 import java.util.*
 
@@ -21,8 +17,7 @@ import java.util.*
 @Transactional
 open class ApiService @Autowired constructor(
         private val avsHostRepository: AvsHostRepository,
-        private val stationBatchRepository: StationBatchRepository,
-        private val stationItemRepository: StationItemRepository
+        private val stationRequestRepository: StationRequestRepository
 ) {
 
     open fun reg(regData: RegReq, remoteAddr: String): RegRsp {
@@ -35,41 +30,42 @@ open class ApiService @Autowired constructor(
         return RegRsp(hostGuid = guid)
     }
 
-    fun postBatch(hostGuid: String, data: PostBatchReq): PostBatchRsp {
-        val host = avsHostRepository.findByGuid(hostGuid)
-        val batch = stationBatchRepository.save(StationBatch(host = host, guid = UUID.randomUUID().toString()))
-
-        stationItemRepository.save(data.stations!!.map {
-            StationItem(
-                    hostId = it.id
-                    , batch = batch
-                    , name = it.name
-                    , description = it.description
-                    , okato = it.okato
-                    , regionName = it.regionName
-                    , regionGuid = it.regionGuid
-                    , latitude = it.latitude
-                    , longitude = it.longitude
-            )
-        })
-
-        return PostBatchRsp(batchGuid = batch.guid)
-    }
-
-    fun getBatch(host: String, data: GetBatchReq): GetBatchRsp {
-        val batch = stationBatchRepository.findByGuid(data.batchId!!)
-        val stations = stationItemRepository.findByBatchAndStationNotNull(batch).map {
-            StationDto(
-                    guid = it.station!!.guid
-                    ,id = it.hostId
-                    ,name = it.name
-                    ,regionName = it.regionName
-                    ,regionGuid = it.station!!.region!!.guid
-                    ,description = it.description
-                    ,okato = it.station!!.place?.okato
-                    ,latitude = it.station!!.latitude
-                    ,longitude = it.station!!.longitude)
+    open fun guid(hostGuid: String, data: GuidReq): GuidRsp {
+        if (data.stations.size > 100) {
+            throw IllegalArgumentException("to many stations")
         }
-        return GetBatchRsp(stations = stations)
+
+        val host = avsHostRepository.findByGuid(hostGuid)
+        val extIds = data.stations.map { it.id!! }
+
+        val registered = stationRequestRepository.findByHostAndExtIdIn(host, extIds)
+
+        stationRequestRepository.save(data.stations
+                .filterNot {newStation-> registered.any {readyStation-> readyStation.extId!!.equals(newStation.id)  } }
+                .map {StationRequest(
+                            host = host
+                            , extId = it.id
+                            , name = it.name
+                            , description = it.description
+                            , okato = it.okato
+                            , regionName = it.regionName
+                            , regionGuid = it.regionGuid
+                            , latitude = it.latitude
+                            , longitude = it.longitude
+                    )
+                }
+        )
+
+        return GuidRsp(stations = registered.filter { it.station != null }.map { StationDto(
+                guid = it.station!!.guid
+                ,id = it.extId
+                ,name = it.station!!.name
+                ,regionName = it.station!!.region!!.name
+                ,regionGuid = it.station!!.region!!.guid
+                ,description = it.description
+                ,okato = it.station!!.place?.okato
+                ,latitude = it.station!!.latitude
+                ,longitude = it.station!!.longitude
+        ) })
     }
 }

@@ -1,5 +1,6 @@
 package ru.etraffic.stations.ws.model
 
+import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
 /**
@@ -7,12 +8,14 @@ import javax.validation.constraints.NotNull
  */
 data class Request<T> (
         @NotNull
+        @Valid
         var data: T? = null
 )
 
 data class AuthRequest<T> (
         @NotNull
-        val host: String? = null,
+        val host: String,
         @NotNull
+        @Valid
         val data: T? = null
 )

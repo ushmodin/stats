@@ -2,12 +2,14 @@ package ru.etraffic.stations.ws
 
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.etraffic.stations.ws.model.*
 import javax.servlet.http.HttpServletRequest
+import javax.validation.Valid
 
 /**
  * Created by nikolay on 26.08.16.
@@ -21,21 +23,19 @@ open class ApiController @Autowired constructor(val apiService: ApiService) {
     @ExceptionHandler(Throwable::class)
     fun error(ex: Throwable): Response<Nothing> {
         log.error(null, ex)
-        return Response.error(ex.javaClass.simpleName, ex.message)
+        return Response.error("APP_ERROR", ex.message)
     }
 
     @RequestMapping("ping")
     fun ping(value: String) = value.success()
 
     @RequestMapping("reg")
-    fun reg(@RequestBody req: Request<RegReq>, httpReq: HttpServletRequest)
-            = apiService.reg(req.data!!, httpReq.remoteAddr).success()
+    fun reg(@Valid @RequestBody req: Request<RegReq>, httpReq: HttpServletRequest): Response<Any> {
+        return apiService.reg(req.data!!, httpReq.remoteAddr).success()
+    }
 
-    @RequestMapping("batch")
-    fun postBatch(@RequestBody req: AuthRequest<PostBatchReq>)
-        = apiService.postBatch(req.host!!, req.data!!).success()
-
-    @RequestMapping("batch")
-    fun getBatch(@RequestBody req: AuthRequest<GetBatchReq>)
-        = apiService.getBatch(req.host!!, req.data!!).success()
+    @RequestMapping("guid")
+    fun guid(@RequestBody req: AuthRequest<GuidReq>): Response<Any> {
+        return apiService.guid(req.host, req.data!!).success()
+    }
 }

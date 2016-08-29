@@ -25,6 +25,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile "org.postgresql:postgresql:9.3-1101-jdbc3"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin"
     compile project(":database")
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile 'org.apache.commons:commons-lang3:3.4'
