@@ -14,8 +14,8 @@ open class Response<T> (
         val error: Error? = null
 ) {
     companion object {
-        fun error(code: String?, message: String?)
-                = Response(success = false, data = null, error = Error(code, message))
+        fun <T> error(code: String?, message: String?)
+                = Response<T>(success = false, data = null, error = Error(code, message))
     }
 }
 

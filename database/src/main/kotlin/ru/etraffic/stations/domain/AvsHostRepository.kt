@@ -2,6 +2,7 @@ package ru.etraffic.stations.domain
 
 import org.springframework.data.jpa.repository.JpaRepository
 import ru.etraffic.stations.domain.model.AvsHost
+import java.util.*
 
 /**
  *
@@ -10,5 +11,5 @@ import ru.etraffic.stations.domain.model.AvsHost
  */
 
 interface AvsHostRepository: JpaRepository<AvsHost, Long> {
-    fun findByGuid(host: String): AvsHost
+    fun findByGuid(host: String): Optional<AvsHost>
 }

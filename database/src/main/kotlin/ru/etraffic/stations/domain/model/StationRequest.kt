@@ -14,7 +14,7 @@ data class StationRequest(
         @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
         var id: Long? = null,
         @ManyToOne(fetch = javax.persistence.FetchType.LAZY, optional = false)
-        @JoinColumn(name = "host_id")
+        @JoinColumn(name = "host_id", nullable = false)
         var host: AvsHost? = null,
         @ManyToOne(fetch = javax.persistence.FetchType.LAZY)
         @JoinColumn(name = "station_id")

@@ -32,10 +32,11 @@ open class ApiService @Autowired constructor(
 
     open fun guid(hostGuid: String, data: GuidReq): GuidRsp {
         if (data.stations.size > 100) {
-            throw IllegalArgumentException("to many stations")
+            throw AppException(AppErrorCode.TO_MANY_DATA, "To many stations")
         }
 
-        val host = avsHostRepository.findByGuid(hostGuid)
+        val host = getHost(hostGuid)
+
         val extIds = data.stations.map { it.id!! }
 
         val registered = stationRequestRepository.findByHostAndExtIdIn(host, extIds)
@@ -68,4 +69,8 @@ open class ApiService @Autowired constructor(
                 ,longitude = it.station!!.longitude
         ) })
     }
+
+    open fun getHost(host: String) = avsHostRepository
+                .findByGuid(host)
+                .orElseThrow { AppException(AppErrorCode.UNKNOWN_HOST, "Unknown host $host") }
 }

@@ -1,5 +1,6 @@
 package ru.etraffic.stations.client
 
+import org.hibernate.annotations.Fetch
 import java.math.BigDecimal
 import javax.persistence.*
 
@@ -24,15 +25,18 @@ data class Station (
         @Column(name="st_desc")
         var description: String? = null,
 
-        @ManyToOne(fetch = javax.persistence.FetchType.LAZY)
+        @ManyToOne
         @JoinColumn(name="st_reg_ref")
         var region: Region? = null,
 
-        @ManyToOne(fetch = javax.persistence.FetchType.LAZY)
+        @ManyToOne
         @JoinColumn(name="st_kladr_ref")
         var kladr: Kladr? = null,
 
+        @Column(name="st_latitude")
         var latitude: BigDecimal? = null,
+
+        @Column(name="st_longitude")
         var longitude: BigDecimal? = null
 )
 
@@ -44,7 +48,7 @@ data class Kladr (
 
         var name: String? = null,
 
-        @Column(name = "okatd")
+        @Column(name = "ocatd")
         var okato: String? = null
 )
 
@@ -61,3 +65,25 @@ data class Region (
         @Column(name = "reg_guid")
         var guid: String? = null
 )
+
+
+@Entity
+@Table(name = "hosts")
+data class Host (
+        @Id
+        @Column(name = "hst_id")
+        var id: Long? = null,
+        @Column(name = "hst_guid")
+        var guid: String? = null,
+        @Column(name = "hst_name")
+        var name: String? = null,
+        @Column(name = "hst_inn")
+        var inn: String? = null,
+        @Column(name = "hst_state")
+        @Enumerated(javax.persistence.EnumType.STRING)
+        var state: State? = null
+)
+
+enum class State {
+        A, D, H
+}

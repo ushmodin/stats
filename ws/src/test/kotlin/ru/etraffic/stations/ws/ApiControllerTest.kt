@@ -100,7 +100,7 @@ open class ApiControllerTest {
         Assert.assertTrue(rsp.data!!.stations.isEmpty())
 
         val host = avsHostRepository.findByGuid(auth.data.hostGuid)
-        val stationRequests = stationRequestRepository.findByHostAndExtIdIn(host, listOf(req.data!!.stations[0].id!!))
+        val stationRequests = stationRequestRepository.findByHostAndExtIdIn(host.get(), listOf(req.data!!.stations[0].id!!))
         stationRequests[0].station = stationRepository.findAll(PageRequest(1, 1)).content[0]
         stationRequestRepository.save(stationRequests[0])
 

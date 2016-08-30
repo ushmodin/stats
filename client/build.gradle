@@ -27,6 +27,10 @@ dependencies {
     compile "org.springframework:spring-beans:4.3.2.RELEASE"
     compile "org.springframework:spring-orm:4.3.2.RELEASE"
     compile "org.springframework:spring-tx:4.3.2.RELEASE"
+    compile "com.google.guava:guava:19.0"
+    compile "com.fasterxml.jackson.core:jackson-core:2.8.2"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.8.2"
+    compile 'com.fasterxml.jackson.module:jackson-module-kotlin:2.8.2'
     compile 'org.slf4j:slf4j-log4j12:1.7.13'
     compile 'org.hibernate:hibernate-entitymanager:4.3.11.Final'
     compile 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final'

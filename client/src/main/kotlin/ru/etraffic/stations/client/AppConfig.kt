@@ -3,6 +3,7 @@ package ru.etraffic.stations.client
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
@@ -11,6 +12,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
 import org.springframework.orm.jpa.vendor.Database
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter
 import org.springframework.scheduling.annotation.EnableScheduling
+import org.springframework.web.client.RestTemplate
 import javax.persistence.EntityManagerFactory
 import javax.sql.DataSource
 
@@ -22,6 +24,7 @@ import javax.sql.DataSource
 @Configuration
 @EnableScheduling
 @EnableJpaRepositories
+@ComponentScan
 open class AppConfig {
 
     @Bean
@@ -48,9 +51,13 @@ open class AppConfig {
         emf.jpaVendorAdapter = HibernateJpaVendorAdapter()
         emf.setPackagesToScan("ru.etraffic.stations.client")
         emf.persistenceUnitName = "av2"
+        emf.jpaPropertyMap["hibernate.default_schema"] = "AV2"
         return emf
     }
 
     @Bean
     open fun transactionManager(emf: EntityManagerFactory) = JpaTransactionManager(emf)
+
+    @Bean
+    open fun restTemplate() = RestTemplate()
 }
