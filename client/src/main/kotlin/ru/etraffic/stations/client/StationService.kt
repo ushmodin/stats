@@ -40,7 +40,10 @@ class StationService @Autowired constructor(@Value("\${station.server}") val ser
             host = reg(host)
         }
 
-        dbService.getNotLinkedStation().split(100).forEach {stations->
+        dbService
+                .getNotLinkedStation()
+                .split(100)
+                .forEach {stations->
             val rsp = restTemplate.postForObject("$server/api/guid", AuthRequest(host = host.guid!!, data = GuidReq(stations = stations)), GuidRspType::class.java)
             dbService.updateStation(rsp.data!!.stations)
         }
