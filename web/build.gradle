@@ -1,0 +1,37 @@
+group 'ru.etraffic'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.1"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+    compile 'org.webjars.bower:angular:1.5.8'
+    compile 'org.webjars.bower:angular-route:1.5.8'
+    compile 'org.webjars.bower:angular-bootstrap:2.1.2'
+    compile 'org.webjars.bower:bootstrap:3.3.7'
+    compile 'org.webjars.bower:angular-ui-grid:3.2.1'
+    compile "org.postgresql:postgresql:9.3-1101-jdbc3"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile project(":database")
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile 'org.apache.commons:commons-lang3:3.4'
+}

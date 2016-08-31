@@ -1,0 +1,46 @@
+<div>
+    <table class="table table-hover table-row-cell table-cell col-md-12">
+        <thead>
+        <tr>
+            <th>GUID</th>
+            <th>Название</th>
+            <th>Код рег.</th>
+            <th>Код р-на</th>
+            <th>Код пункта</th>
+            <th>ОКАТО</th>
+            <th>Акт-сть</th>
+            <th>Статус</th>
+        </tr>
+        <tr>
+            <th><input class="form-control" ng-model="filter.guid" ng-change="loadAddrobjs()" ng-model-options="{updateOn : 'change blur'}"/></th>
+            <th><input class="form-control" ng-model="filter.offname" ng-change="loadAddrobjs()" ng-model-options="{updateOn : 'change blur'}"/></th>
+            <th><input class="form-control" ng-model="filter.regioncode" ng-change="loadAddrobjs()" ng-model-options="{updateOn : 'change blur'}"/></th>
+            <th><input class="form-control" ng-model="filter.areacode" ng-change="loadAddrobjs()" ng-model-options="{updateOn : 'change blur'}"/></th>
+            <th><input class="form-control" ng-model="filter.placecode" ng-change="loadAddrobjs()" ng-model-options="{updateOn : 'change blur'}"/></th>
+            <th><input class="form-control" ng-model="filter.okato" ng-change="loadAddrobjs()" ng-model-options="{updateOn : 'change blur'}"/></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in addrobjs.content">
+                <td>{{item.guid}}</td>
+                <td>{{item.offname}}</td>
+                <td>{{item.regioncode}}</td>
+                <td>{{item.areacode}}</td>
+                <td>{{item.placecode}}</td>
+                <td>{{item.okato}}</td>
+                <td>{{item.actstatus}}</td>
+                <td>{{item.currstatus}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ul uib-pagination
+        total-items="addrobjs.totalPages"
+        ng-model="currentPage"
+        max-size="pageSize"
+        class="pagination-sm"
+        boundary-link-numbers="true"
+        ng-change="loadAddrobjs()"
+        previous-text="<<"
+        next-text=">>"
+        rotate="false"></ul>
+</div>

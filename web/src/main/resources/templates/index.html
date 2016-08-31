@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" ng-app="app">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <base th:href="@{/}"/>
+    <script src="webjars/angular/1.5.8/angular.js"></script>
+    <script src="webjars/angular-route/1.5.8/angular-route.js"></script>
+    <script src="webjars/angular-bootstrap/2.1.2/ui-bootstrap.js"></script>
+    <script src="webjars/angular-bootstrap/2.1.2/ui-bootstrap-tpls.js"></script>
+    <script src="webjars/jquery/3.1.0/dist/jquery.js"></script>
+    <script src="webjars/bootstrap/3.3.7/dist/js/bootstrap.js"></script>
+    <script src="webjars/angular-ui-grid/3.2.1/ui-grid.js"></script>
+
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="webjars/angular-bootstrap/2.1.2/ui-bootstrap-csp.css"/>
+    <link rel="stylesheet" href="webjars/angular-bootstrap/2.1.2/"/>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.7/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="webjars/angular-ui-grid/3.2.1/ui-grid.css"/>
+    <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+<header id="page-header">
+    <hgroup>
+        <h1><a href="/">Станции</a></h1>
+    </hgroup>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ФИАС</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#addrobj">Все объекты</a></li>
+                            <li><a href="#regions">Регионы</a></li>
+                            <li><a href="#areas">Районы</a></li>
+                            <li><a href="#places">Населенные пункты</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Станции</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#requests">Не привязанные</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="page-content" ng-view="">
+</div>
+<footer id="page-footer">
+    <div class="inner">
+        <div class="copyright">
+            &copy; ООО Артмарк, 2007-2016
+        </div>
+    </div>
+</footer>
+</body>
+</html>

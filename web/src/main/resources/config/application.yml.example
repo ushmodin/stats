@@ -1,0 +1,7 @@
+spring.thymeleaf.cache: false
+spring:
+  datasource:
+    url: jdbc:postgresql://x.x.x.x:5432/xxx
+    username:
+    password:
+    driverClassName: org.postgresql.Driver

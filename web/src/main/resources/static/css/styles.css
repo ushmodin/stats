@@ -1,0 +1,517 @@
+/*** CSS RESET ***/
+
+html, body, hr, h1, h2, h3, h4, h5, h6, p, form, dl, dt, dd, pre {
+    padding: 0;
+    margin: 0;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    vertical-align: top;
+}
+
+img {
+    border: 0;
+}
+
+pre {
+    margin-left: 6px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/*** GENERAL STYLES ***/
+
+html {
+    height: 100%;
+    background-color: #999999;
+}
+
+body {
+    font-family: "Trebuchet MS",Helvetica,sans-serif;
+    /*	font-family: Arial,Helvetica,sans-serif;
+        font-family: Tahoma, Geneva, sans-serif;
+        font-family: Verdana, Geneva, sans-serif;
+    */
+    font-size: 13px;
+    color: #333333;
+    background-color: #ffffff;
+
+    min-height: 100%;
+    max-width: 1280px;
+    margin: 0 auto 20px;
+    padding: 0;
+}
+
+* html body {
+    height: 100%;
+}
+
+h2 {
+    margin: 12px 0 12px;
+}
+
+h4 {
+    margin: 0 0 12px;
+}
+
+p {
+    margin-bottom: 12px;
+}
+
+em {
+    font-weight: bold;
+    font-style: normal;
+    color: #C4151C;
+}
+
+a, a:active, a:visited {
+    color: #286B9A;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.disabled, .status_H {
+    color: #777777;
+}
+
+.deleted, .status_D {
+    color: #777777;
+    text-decoration: line-through;
+}
+
+.hidden {
+    display: none;
+}
+
+.hint {
+    color: #777777;
+    font-size: 10px;
+}
+
+.info {
+    background-color: #fdf5d6;
+    border: 1px solid #ecc56f;
+    border-radius: 5px;
+    padding: 6px;
+}
+
+.clear {
+    clear: both;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/*** PAGE HEADER ***/
+
+#page-header {
+    /*margin-bottom: 12px;*/
+    position: relative;
+}
+
+#page-header h1 {
+    height: 34px;
+    line-height: 34px;
+    vertical-align: middle;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: #333333;
+
+    padding: 0 12px;
+    text-transform: uppercase;
+}
+
+#page-header h1 a, #page-header h1 a:visited {
+    color: #333333;
+    text-decoration: none;
+}
+
+#page-header .status {
+    display: block;
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    text-decoration: none;
+    color: #ffffff;
+    border-radius: 9px;
+    font-size: 9pt;
+    font-weight: bold;
+    height: 15px;
+    line-height: 15px;
+    min-width: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#page-header .offline {
+    background-color: #cc0000;
+    border: 2px solid #cc0000;
+}
+
+#page-header .online {
+    background-color: #468847;
+    border: 2px solid #468847;
+}
+
+
+/*** MAIN MENU ***/
+
+nav {
+    height: 22px;
+    background-color: #286B9A;
+    padding: 0 12px;
+}
+
+/*** PAGE BODY ***/
+
+#page-content {
+    position: relative;
+    padding: 0 12px 12px;
+}
+
+
+/*** PAGE FOOTER ***/
+
+#page-footer {
+    clear: both;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 2px solid #286B9A;
+    background-color: #ffffff;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+#page-footer .inner {
+    margin: 0 6px;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+#page-footer .version {
+    float: left;
+}
+
+#page-footer .copyright {
+    float: right;
+}
+
+/*** FORMS ***/
+
+form {
+    margin: 0 auto 12px;
+}
+
+form h3 {
+    clear: both;
+    padding: 6px 0;
+}
+
+form dt {
+    clear: left;
+    float: left;
+    width: 40%;
+    margin-bottom: 8px;
+    padding-top: 5px;
+}
+
+form dd {
+    float: left;
+    width: 60%;
+    margin-bottom: 8px;
+    padding-top: 5px;
+}
+
+form .error {
+    display: block;
+    color: #C4151C;
+    font-weight: bold;
+}
+
+form .errors {
+    display: block;
+    color: #C4151C;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+form .buttons {
+    clear: both;
+    text-align: center;
+    padding-top: 12px;
+}
+
+form .buttons a {
+    margin-left: 12px;
+}
+
+fieldset {
+    border-top: 1px solid #B6D7EF;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    clear: both;
+    display: block;
+    margin: 0;
+    padding: 10px 0;
+}
+
+fieldset legend {
+    color: #286B9A;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 8px 12px 8px 0;
+}
+
+input[type="text"], input[type="password"], input[type="email"], select.dropdown {
+    background-color: #F2F2F2;
+    padding: 4px 10px 4px 4px;
+    border: 1px solid #AAAAAA;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 3px #FFFFFF inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 260px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+    border-color: #5897FB;
+}
+
+.dropdown, .dropdown-ns {
+    /*min-width: 276px;*/
+}
+
+.lookup {
+    width: 300px;
+}
+
+input[type="button"], input[type="submit"] {
+    padding: 1px 10px;
+}
+
+textarea {
+    width: 276px;
+    height: 120px;
+}
+
+input.required, textarea.required, select.required, div.select2-container.required a {
+    /*background: #F2F2F2 url("images/asterisk.png") no-repeat right top;*/
+    border: 1px solid #C4151C;
+}
+
+input.datepicker {
+    width: 76px;
+    background: #F2F2F2 url("images/calendar.png") no-repeat scroll 99% 4px;
+    padding-right: 18px;
+    cursor: pointer;
+}
+
+input.date {
+    width: 76px;
+}
+
+a.button, a.button:active, a.button:visited {
+    color: #3F4A50 !important;
+    display: inline-block;
+    min-width: 70px;
+
+    text-decoration: none;
+
+    border: 1px solid #aaaaaa;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 6px;
+
+    background: #EFEFEF;
+    background: linear-gradient(to top, #EFEFEF, #FFFFFF);
+    background: -moz-linear-gradient(center top, #FFFFFF, #EFEFEF);
+    background: -webkit-gradient(linear,left top,left bottom,from(#FFFFFF),to(#EFEFEF));
+}
+
+a.button:hover {
+    border-color:#939393;
+}
+
+a.button:active {
+    background: linear-gradient(to top, #FFFFFF, #EFEFEF);
+}
+
+.dialog {
+    /*display: none;*/
+}
+
+/*** LISTS ***/
+
+ul.vlist {
+    list-style: none outside;
+    padding: 0;
+}
+
+ul.vlist li {
+    padding: 0;
+}
+
+ul.hlist {
+
+}
+
+ul.hlist li {
+
+}
+
+/*** GRIDS ***/
+
+.grid-indicator {
+    clear: both;
+    text-align: center;
+    padding: 12px 0;
+    display: none;
+}
+
+.grid {
+    width: 100%;
+    margin-bottom: 12px;
+    border-collapse: separate;
+    border-spacing: 1px;
+    border: 1px solid #286B9A;
+}
+
+.grid tr:nth-child(odd) {
+    background: #eeeeee;
+}
+
+.grid tr:hover {
+    background-color: #dddddd;
+}
+
+.grid th {
+    text-align: left;
+    padding: 4px 6px;
+    color: #ffffff;
+    background-color: #286B9A;
+}
+
+.grid td {
+    padding: 4px 4px;
+    vertical-align: middle;
+}
+
+.grid .min {
+    width: 1px;
+    white-space:nowrap;
+    text-align:center;
+}
+
+.grid .disabled, .grid .disabled a {
+    color: #888888;
+}
+
+.no-data {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.grid-form {
+    float:left;
+}
+
+.grid-form dl {
+    float: left;
+    padding-right: 6px;
+}
+
+.grid-form dt {
+    float: none;
+    display: block;
+    padding: 0;
+    margin: 0 0 2px 0;
+    width: auto;
+}
+
+.grid-form dd {
+    float: none;
+    vertical-align: bottom;
+    width: auto;
+}
+
+.grid-actions {
+    text-align: right;
+    margin-bottom: 12px;
+}
+
+
+/*** DATA PAGINATION ***/
+
+div.pagination {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+div.pagination strong, div.pagination a {
+    text-align: center;
+    min-width: 28px;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    padding: 2px 2px;
+    display: inline-block;
+
+    border: 1px solid #aaaaaa;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+div.pagination strong img, div.pagination a img {
+    display: inline-block;
+}
+
+div.pagination strong {
+    background: none repeat scroll 0 0 #DDDDDD;
+    color: #000000;
+    text-align: center;
+    font-weight: normal;
+}
+
+div.pagination a, div.pagination a:visited {
+    text-decoration: none;
+
+    background-color: #F6F6F6;
+    background-image: -moz-linear-gradient(center top , #FFFFFF, #EFEFEF);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#FFFFFF),to(#EFEFEF));
+}
+
+div.pagination a:hover {
+    -moz-box-shadow: 0 0 3px #999999;
+    box-shadow: 0 0 3px #999999;
+    border-color: #5897FB;
+}
+
+div.pagination a:active {
+    background-color: #DDDDDD;
+    background-image: -moz-linear-gradient(center top , #DDDDDD, #FFFFFF);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#DDDDDD),to(#FFFFFF));
+}

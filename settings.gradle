@@ -2,4 +2,5 @@ rootProject.name = 'stations'
 include 'database'
 include 'ws'
 include 'client'
+include 'web'
 
