@@ -27,7 +27,8 @@ dependencies {
     compile 'org.webjars.bower:angular-route:1.5.8'
     compile 'org.webjars.bower:angular-bootstrap:2.1.2'
     compile 'org.webjars.bower:bootstrap:3.3.7'
-    compile 'org.webjars.bower:angular-ui-grid:3.2.1'
+    compile 'org.webjars.bower:angular-sanitize:1.5.8'
+    compile 'org.webjars.bower:angular-ui-select:0.19.4'
     compile "org.postgresql:postgresql:9.3-1101-jdbc3"
     compile "com.fasterxml.jackson.module:jackson-module-kotlin"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"

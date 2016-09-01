@@ -1,0 +1,65 @@
+<div>
+    <table class="table table-hover table-row-cell table-cell col-md-12">
+        <thead>
+        <tr>
+            <th rowspan="2">ID</th>
+            <th rowspan="2">Хост</th>
+            <th colspan="4">Привязка</th>
+            <th colspan="5">Информация с хоста</th>
+        </tr>
+        <tr>
+            <th>Страна</th>
+            <th>Регион</th>
+            <th>Район</th>
+            <th>Нас.пункт</th>
+            <th>Название</th>
+            <th>Регион</th>
+            <th>ОКАТО</th>
+            <th>Ширина</th>
+            <th>Долгота</th>
+        </tr>
+        <tr>
+            <th></th>
+            <th>
+                <ui-select ng-model="filter.host" theme="bootstrap" ng-change="loadData()">
+                    <ui-select-match placeholder="Выберите хост">{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="item in hosts | filter: $select.search">
+                        <div ng-bind-html="item.name | highlight: $select.search"></div>
+                        <small ng-bind-html="item.inn | highlight: $select.search"></small>
+                    </ui-select-choices>
+                </ui-select>
+            </th>
+            <th colspan="4"></th>
+            <th>
+                <input class="form-control" ng-model="filter.name" ng-change="loadData()" ng-model-options="{updateOn : 'change blur'}"/>
+            </th>
+            <th colspan="6"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in data.content">
+            <td><a href="#request/{{item.id}}">{{item.id}}</a></td>
+            <td>{{item.country}}</td>
+            <td>{{item.region}}</td>
+            <td>{{item.area}}</td>
+            <td>{{item.place}}</td>
+            <td>{{item.station}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.regionName}}</td>
+            <td>{{item.okato}}</td>
+            <td>{{item.latitude}}</td>
+            <td>{{item.longitude}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <ul uib-pagination
+        total-items="data.totalPages"
+        ng-model="currentPage"
+        max-size="pageSize"
+        class="pagination-sm"
+        boundary-link-numbers="true"
+        ng-change="loadData()"
+        previous-text="<<"
+        next-text=">>"
+        rotate="false"></ul>
+</div>
