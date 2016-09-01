@@ -12,6 +12,6 @@ import java.util.*
  */
 
 interface  RegionRepository:JpaRepository<Region, Long> {
-    @Query("select r from Region r where r.country.id = ?1")
+    @Query("select r from Region r where r.country.id = ?1 or ?1 is null")
     fun findByCountryId(countryId: Optional<Long>): List<Region>
 }

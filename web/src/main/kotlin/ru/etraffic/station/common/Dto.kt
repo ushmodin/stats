@@ -19,3 +19,21 @@ data class RegionDto (
     val guid: String,
     val name: String
 )
+
+data class AreaDto (
+        val id: Long,
+        val guid: String,
+        val name: String
+)
+
+data class PlaceDto (
+        val id: Long,
+        val guid: String,
+        val name: String
+)
+
+data class StationDto (
+        val id: Long,
+        val guid: String,
+        val name: String
+)

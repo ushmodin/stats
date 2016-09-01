@@ -1,4 +1,4 @@
-package ru.etraffic.station.requests
+package ru.etraffic.station.requests.index
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
@@ -16,7 +16,7 @@ import javax.persistence.criteria.Root
 /**
  * Created by nikolay on 01.09.16.
  */
-@Service
+@Service("requestsIndexDbService")
 @Transactional
 open class DbService @Autowired constructor(val stationRequestRepository: StationRequestRepository) {
     open fun requests(filter: RequestFilter, page: Pageable) = stationRequestRepository.findAll(RequestsSpecification(filter), page).map {

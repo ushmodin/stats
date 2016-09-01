@@ -20,4 +20,13 @@ class Controller @Autowired constructor(val dbService: DbService) {
 
     @RequestMapping("regions")
     fun regions(countryId: Optional<Long>) = dbService.regions(countryId).success()
+
+    @RequestMapping("areas")
+    fun areas(regionId: Optional<Long>) = dbService.areas(regionId).success()
+
+    @RequestMapping("places")
+    fun places(regionId: Optional<Long>, areaId: Optional<Long>, cityId: Optional<Long>) = dbService.places(regionId, areaId, cityId).success()
+
+    @RequestMapping("stations")
+    fun stations(regionId: Optional<Long>, areaId: Optional<Long>, cityId: Optional<Long>, placeId: Optional<Long>) = dbService.stations(areaId, regionId, cityId, placeId).success()
 }

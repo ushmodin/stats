@@ -1,4 +1,4 @@
-package ru.etraffic.station.requests
+package ru.etraffic.station.requests.index
 
 import java.math.BigDecimal
 

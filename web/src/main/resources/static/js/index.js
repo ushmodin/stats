@@ -67,26 +67,47 @@ app.controller('RequestsController', ['$scope','$http',function ($scope,$http) {
 }]);
 
 
+app.service('$common',['$http', '$q', function ($http, $q) {
+    var self = this;
+    self.countries = function () {
+        var deferred = $q.defer();
+        $http.post('api/common/countries').then(function (response) {
+            deferred.resolve(response.data.data);
+        });
+        return deferred.promise;
+    }
+    self.regions = function (countryId) {
+        var deferred = $q.defer();
+        $http.post('api/common/regions?countryId=' + (countryId || '')).then(function (response) {
+            deferred.resolve(response.data.data);
+        });
+        return deferred.promise;
+    }
+}]);
 
-app.controller('RequestController', ['$scope','$http',function ($scope,$http) {
+app.controller('RequestController', ['$scope','$http','$common','$routeParams',function ($scope,$http,$common,$routeParams) {
     $scope.data = {};
-    $scope.hosts = [];
+    $scope.countries = [];
+    $scope.regions = [];
     $scope.currentPage = 1;
     $scope.pageSize = 20;
-    $scope.filter = {};
+    $scope.stationFilter = {};
 
     $scope.loadData = function () {
-        $http.post('api/requests/list?page='+($scope.currentPage-1)+'&size='+($scope.pageSize), $scope.filter).then(function (response) {
+        $http.post('api/request/' + $routeParams.id, $scope.filter).then(function (response) {
             $scope.data = response.data.data;
         })
     };
-    $scope.loadHosts = function () {
-        $http.post('api/common/hosts').then(function (response) {
-            $scope.hosts = response.data.data;
-        })
-    };
-
     $scope.loadData();
-    $scope.loadHosts();
+
+    $scope.loadStations = function () {
+        $common.countries().then(function (data) {
+            $scope.countries = data;
+        });
+        $common.regions($scope.stationFilter.country?$scope.stationFilter.country.id:null).then(function (data) {
+            $scope.regions = data;
+        });
+    };
+    $scope.loadStations();
 }]);
 

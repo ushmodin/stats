@@ -1,4 +1,4 @@
-package ru.etraffic.station.requests
+package ru.etraffic.station.requests.index
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
@@ -10,7 +10,7 @@ import ru.etraffic.station.success
 /**
  * Created by nikolay on 01.09.16.
  */
-@RestController("requestsController")
+@RestController("requestsIndexController")
 @RequestMapping("/api/requests")
 class Controller @Autowired constructor(val dbService: DbService) {
     @RequestMapping("list")
