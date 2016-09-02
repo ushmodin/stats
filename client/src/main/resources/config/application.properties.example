@@ -4,3 +4,4 @@ jdbc.nlsTerritory=RUSSIA
 jdbc.nlsNumericCharacters=.,
 jdbc.username=
 jdbc.password=
+station.server=

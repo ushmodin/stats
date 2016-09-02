@@ -2,6 +2,7 @@ package ru.etraffic.stations.domain
 
 import org.springframework.data.jpa.repository.JpaRepository
 import ru.etraffic.stations.domain.model.Country
+import ru.etraffic.stations.domain.model.EntityStatus
 
 /**
  *
@@ -10,4 +11,5 @@ import ru.etraffic.stations.domain.model.Country
  */
 
 interface CountryRepository: JpaRepository<Country, Long> {
+    fun findByStatus(status: EntityStatus): List<Country>
 }

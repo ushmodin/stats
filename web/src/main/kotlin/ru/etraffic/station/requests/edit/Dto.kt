@@ -1,5 +1,7 @@
 package ru.etraffic.station.requests.edit
 
+import java.util.*
+
 /**
  * Created by nikolay on 02.09.16.
  */
@@ -20,4 +22,20 @@ data class StationDto (
         val city: String?,
         val place: String,
         val okato: String?
+)
+
+data class StationFilter (
+        val name: String?,
+        val type: String?,
+        val countryId: Long?,
+        val regionId: Long?,
+        val areaId: Long?,
+        val cityId: Long?,
+        val placeId: Long?,
+        val okato: String?
+)
+
+data class LinkDto (
+        val requestId: Long,
+        val stationId: Long
 )

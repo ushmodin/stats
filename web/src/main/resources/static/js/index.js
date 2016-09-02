@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('app', ['ngRoute','ngSanitize','ui.bootstrap','ui.select']);
+var app = angular.module('app', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'ui.select']);
 
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
@@ -29,14 +29,14 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 
-app.controller('AddrobjController', ['$scope','$http',function ($scope,$http) {
+app.controller('AddrobjController', ['$scope', '$http', function ($scope, $http) {
     $scope.addrobjs = {};
     $scope.currentPage = 1;
     $scope.pageSize = 20;
     $scope.filter = {};
 
     $scope.loadAddrobjs = function () {
-        $http.post('api/addrobj/list?page='+($scope.currentPage-1)+'&size='+($scope.pageSize), $scope.filter).then(function (response) {
+        $http.post('api/addrobj/list?page=' + ($scope.currentPage - 1) + '&size=' + ($scope.pageSize), $scope.filter).then(function (response) {
             $scope.addrobjs = response.data.data;
         })
     };
@@ -44,7 +44,7 @@ app.controller('AddrobjController', ['$scope','$http',function ($scope,$http) {
     $scope.loadAddrobjs();
 }]);
 
-app.controller('RequestsController', ['$scope','$http',function ($scope,$http) {
+app.controller('RequestsController', ['$scope', '$http', function ($scope, $http) {
     $scope.data = {};
     $scope.hosts = [];
     $scope.currentPage = 1;
@@ -52,7 +52,7 @@ app.controller('RequestsController', ['$scope','$http',function ($scope,$http) {
     $scope.filter = {};
 
     $scope.loadData = function () {
-        $http.post('api/requests/list?page='+($scope.currentPage-1)+'&size='+($scope.pageSize), $scope.filter).then(function (response) {
+        $http.post('api/requests/list?page=' + ($scope.currentPage - 1) + '&size=' + ($scope.pageSize), $scope.filter).then(function (response) {
             $scope.data = response.data.data;
         })
     };
@@ -67,31 +67,65 @@ app.controller('RequestsController', ['$scope','$http',function ($scope,$http) {
 }]);
 
 
-app.service('$common',['$http', '$q', function ($http, $q) {
+app.service('$common', ['$http', '$q', function ($http, $q) {
     var self = this;
     self.countries = function () {
-        var deferred = $q.defer();
-        $http.post('api/common/countries').then(function (response) {
-            deferred.resolve(response.data.data);
+        return $q(function (accept, reject) {
+            $http.post('api/common/countries').then(function (response) {
+                accept(response.data.data);
+            });
+        })
+    };
+    self.regions = function (countryId, name) {
+        return $q(function (accept, reject) {
+            $http.get('api/common/regions', {
+                params: {
+                    countryId: countryId,
+                    name: name
+                }
+            }).then(function (response) {
+                accept(response.data.data);
+            });
+        })
+    };
+    self.areas = function (regionId, name) {
+        return $q(function (accept, reject) {
+            $http.get('api/common/areas', {
+                params: {
+                    regionId: regionId,
+                    name: name
+                }
+            }).then(function (response) {
+                accept(response.data.data);
+            });
         });
-        return deferred.promise;
-    }
-    self.regions = function (countryId) {
-        var deferred = $q.defer();
-        $http.post('api/common/regions?countryId=' + (countryId || '')).then(function (response) {
-            deferred.resolve(response.data.data);
+    };
+    self.places = function (regionId, areaId, cityId, name) {
+        return $q(function (accept, reject) {
+            $http.get('api/common/places', {
+                params: {
+                    regionId: regionId,
+                    areaId: areaId,
+                    cityId: cityId,
+                    name: name
+                }
+            }).then(function (response) {
+                accept(response.data.data);
+            });
         });
-        return deferred.promise;
-    }
+    };
 }]);
 
-app.controller('RequestController', ['$scope','$http','$common','$routeParams',function ($scope,$http,$common,$routeParams) {
+app.controller('RequestController', ['$scope', '$http', '$common', '$routeParams', '$location', function ($scope, $http, $common, $routeParams, $location) {
     $scope.data = {};
     $scope.countries = [];
     $scope.regions = [];
-    $scope.currentPage = 1;
-    $scope.pageSize = 20;
-    $scope.stationFilter = {};
+    $scope.areas = [];
+    $scope.cities = [];
+    $scope.stationFilter = {
+        currentPage: 1,
+        pageSize: 20
+    };
 
     $scope.loadData = function () {
         $http.post('api/request/' + $routeParams.id, $scope.filter).then(function (response) {
@@ -100,12 +134,67 @@ app.controller('RequestController', ['$scope','$http','$common','$routeParams',f
     };
     $scope.loadData();
 
+    $scope.loadRegions = function (name) {
+        var countryId = $scope.stationFilter.country ? $scope.stationFilter.country.id : null;
+        $common.regions(countryId,name).then(function (data) {
+            $scope.regions = data;
+        });
+    };
+    $scope.loadAraeas = function (name) {
+        var regionId = $scope.stationFilter.region ? $scope.stationFilter.region.id : null;
+        $common.areas(regionId,name).then(function (data) {
+            $scope.areas = data;
+        });
+    };
+    $scope.loadCities = function (name) {
+        var regionId = $scope.stationFilter.region ? $scope.stationFilter.region.id : null;
+        var areaId = $scope.stationFilter.area ? $scope.stationFilter.area.id : null;
+        $common.places(regionId, areaId, null, name).then(function (data) {
+            $scope.cities = data;
+        });
+    };
+    $scope.loadPlaces = function (name) {
+        var regionId = $scope.stationFilter.region ? $scope.stationFilter.region.id : null;
+        var areaId = $scope.stationFilter.area ? $scope.stationFilter.area.id : null;
+        var cityId = $scope.stationFilter.city ? $scope.stationFilter.city.id : null;
+        $common.places(regionId, areaId, cityId, name).then(function (data) {
+            $scope.places = data;
+        });
+    };
+
     $scope.loadStations = function () {
         $common.countries().then(function (data) {
             $scope.countries = data;
         });
-        $common.regions($scope.stationFilter.country?$scope.stationFilter.country.id:null).then(function (data) {
-            $scope.regions = data;
+        $scope.loadRegions();
+        $scope.loadAraeas();
+        $scope.loadCities();
+        $scope.loadPlaces();
+        $http.post('api/request/stations', {
+            name: $scope.stationFilter.name,
+            type: $scope.stationFilter.type,
+            okato: $scope.stationFilter.okato,
+            countryId: $scope.stationFilter.country ? $scope.stationFilter.country.id : null,
+            regionId: $scope.stationFilter.region ? $scope.stationFilter.region.id : null,
+            areaId: $scope.stationFilter.area ? $scope.stationFilter.area.id : null,
+            cityId: $scope.stationFilter.city ? $scope.stationFilter.city.id : null,
+            placeId: $scope.stationFilter.place ? $scope.stationFilter.place.id : null
+        },{
+            params: {
+                page: $scope.stationFilter.currentPage - 1,
+                size: $scope.stationFilter.pageSize
+            }
+        }).then(function (response) {
+            $scope.stations = response.data.data;
+        });
+    };
+
+    $scope.link = function (stationId) {
+        $http.post('api/request/link',{
+                requestId: Number($routeParams.id),
+                stationId: stationId
+            }).then(function (response) {
+            $location.path('#requests');
         });
     };
     $scope.loadStations();
