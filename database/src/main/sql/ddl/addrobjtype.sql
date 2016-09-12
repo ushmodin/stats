@@ -1,0 +1,7 @@
+create table addrobjtypes (
+  id SERIAL PRIMARY KEY,
+  LEVEL INTEGER,
+  SOCRNAME VARCHAR(120),
+  SCNAME VARCHAR(20),
+  KOD_T_ST INTEGER
+);

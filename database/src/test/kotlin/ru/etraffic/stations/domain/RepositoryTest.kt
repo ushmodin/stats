@@ -21,6 +21,8 @@ class RepositoryTest {
     @Autowired lateinit var placeRepository: PlaceRepository
     @Autowired lateinit var stationRepository: StationRepository
     @Autowired lateinit var avsHostRepository: AvsHostRepository
+    @Autowired lateinit var addrobjRepository: AddrobjRepository
+    @Autowired lateinit var addrobjTypeRepository: AddrobjTypeRepository
 
     @Test
     fun testAllRepositories() {
@@ -29,6 +31,7 @@ class RepositoryTest {
         Assert.assertTrue(areaRepository.findAll(PageRequest(1, 10)).totalElements > 0)
         Assert.assertTrue(placeRepository.findAll(PageRequest(1, 10)).totalElements > 0)
         Assert.assertTrue(stationRepository.findAll(PageRequest(1, 10)).totalElements > 0)
-        Assert.assertTrue(avsHostRepository.findAll(PageRequest(1, 10)).totalElements == 0L)
+        Assert.assertTrue(addrobjRepository.findAll(PageRequest(1,10)).totalElements > 0)
+        Assert.assertTrue(addrobjTypeRepository.findAll(PageRequest(1,10)).totalElements > 0)
     }
 }
