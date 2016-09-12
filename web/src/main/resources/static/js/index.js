@@ -114,9 +114,18 @@ app.service('$common', ['$http', '$q', function ($http, $q) {
             });
         });
     };
+    self.getPopulatedLocalityTypes = function (regionId, name) {
+        return $q(function (accept, reject) {
+            $http.get('api/common/populatedLocalityTypes').then(function (response) {
+                accept(response.data.data);
+            });
+        });
+    };
+
 }]);
 
 app.controller('RequestController', ['$scope', '$http', '$common', '$routeParams', '$location', function ($scope, $http, $common, $routeParams, $location) {
+    $scope.populatedLocalityTypes = [];
     $scope.data = {};
     $scope.countries = [];
     $scope.regions = [];
@@ -126,6 +135,10 @@ app.controller('RequestController', ['$scope', '$http', '$common', '$routeParams
         currentPage: 1,
         pageSize: 20
     };
+    $scope.newStation = {};
+    $common.getPopulatedLocalityTypes().then(function (data) {
+        $scope.populatedLocalityTypes = data;
+    });
 
     $scope.loadData = function () {
         $http.post('api/request/' + $routeParams.id, $scope.filter).then(function (response) {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.etraffic.station.jpaContaints
 import ru.etraffic.station.jpaStartWith
+import ru.etraffic.stations.domain.AddrobjTypeRepository
 import ru.etraffic.stations.domain.StationRepository
 import ru.etraffic.stations.domain.StationRequestRepository
 import ru.etraffic.stations.domain.model.Station

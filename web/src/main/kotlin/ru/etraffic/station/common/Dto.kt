@@ -37,3 +37,8 @@ data class StationDto (
         val guid: String,
         val name: String
 )
+
+data class AddrObjTypeDto (
+        val name: String,
+        val shortName: String
+)

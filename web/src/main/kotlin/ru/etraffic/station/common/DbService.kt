@@ -20,7 +20,8 @@ open class DbService @Autowired constructor(
         val regionRepository: RegionRepository,
         val areaRepository: AreaRepository,
         val placeRepository: PlaceRepository,
-        val stationRepository: StationRepository) {
+        val stationRepository: StationRepository,
+        val addrobjTypeRepository: AddrobjTypeRepository) {
 
     open fun hosts() = hostRepository.findAll().map {
         HostDto(id = it.id!!, name = it.name!!, inn = it.inn!!)
@@ -58,4 +59,9 @@ open class DbService @Autowired constructor(
             = stationRepository.findByAreaIdAndRegionIdAndPlaceIdAndStatus(regionId, areaId, cityId, placeId, EntityStatus.A, name.map { it.toLowerCase().jpaContaints() }, pageable).map {
         StationDto(id = it.id!!, guid = it.guid!!, name = it.name!!)
     }
+
+
+    open fun getPopulatedLocalityTypes() = addrobjTypeRepository.findPopulatedLocalityTypes()
+            .distinctBy { it.shortName }
+            .map { AddrObjTypeDto(name = it.name!!, shortName = it.shortName!!)}
 }

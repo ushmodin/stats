@@ -43,4 +43,9 @@ class Controller @Autowired constructor(val dbService: DbService) {
                  name: Optional<String>,
                  pageable: Pageable)
             = dbService.stations(areaId, regionId, cityId, placeId, name, pageable).success()
+
+
+    @RequestMapping("populatedLocalityTypes")
+    fun populatedLocalityTypes()
+            = dbService.getPopulatedLocalityTypes().success()
 }
