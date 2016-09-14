@@ -1,130 +1,156 @@
 <div ng-controller="RequestNewController">
     <form>
-        <div class="form-group">
-            <label for="newStationName">Название</label>
-            <div id="newStationName">
-                <input class="form-control" ng-model="newStation.name">
+        <div class="row">
+            <div class="form-group col-lg-10">
+                <label for="newStationName">Название</label>
+                <div id="newStationName">
+                    <input class="form-control" ng-model="newStation.name">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="addrObjType">Тип</label>
-            <div id="addrObjType">
-                <ui-select ng-model="newStation.type">
-                    <ui-select-match placeholder="Выберите тип нас.пункта">{{$select.selected.name}}</ui-select-match>
-                    <ui-select-choices refresh="loadPopulatedLocalityTypes()"
-                                       repeat="item in populatedLocalityTypes | filter: $select.search">
-                        <div ng-bind-html="item.name | highlight: $select.search"></div>
-                        <small ng-bind-html="item.shortName | highlight: $select.search"></small>
-                    </ui-select-choices>
-                </ui-select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="newStationCountry">Страна</label>
-            <div id="newStationCountry">
-                <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="newStation.country" theme="bootstrap">
-                        <ui-select-match placeholder="Выберите страну">
-                            {{$select.selected.name}}
-                        </ui-select-match>
-                        <ui-select-choices refresh="loadCountries($select.search)"
-                                           repeat="item in countries | filter: $select.search">
+            <div class="form-group col-lg-2">
+                <label for="addrObjType">Тип</label>
+                <div id="addrObjType">
+                    <ui-select ng-model="newStation.type">
+                        <ui-select-match placeholder="Выберите тип нас.пункта">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-choices refresh="loadPopulatedLocalityTypes()"
+                                           repeat="item in populatedLocalityTypes | filter: $select.search">
                             <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            <small ng-bind-html="item.shortName | highlight: $select.search"></small>
                         </ui-select-choices>
                     </ui-select>
-                    <span class="input-group-btn">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-6">
+                <label for="newStationCountry">Страна</label>
+                <div id="newStationCountry">
+                    <div class="input-group select2-bootstrap-append">
+                        <ui-select ng-model="newStation.country" theme="bootstrap">
+                            <ui-select-match placeholder="Выберите страну">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices refresh="loadCountries($select.search)"
+                                               repeat="item in countries | filter: $select.search">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
                         <button type="button"
                                 ng-click="newStation.country = undefined"
                                 class="btn btn-default">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="newStationRegion">Регион</label>
-            <div id="newStationRegion">
-                <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="newStation.region" theme="bootstrap">
-                        <ui-select-match placeholder="Выберите регион">{{$select.selected.name}}
-                        </ui-select-match>
-                        <ui-select-choices refresh="loadRegions($select.search)"
-                                           repeat="item in regions | filter: $select.search">
-                            <div ng-bind-html="item.name | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
-                    <span class="input-group-btn">
+            <div class="form-group col-lg-6">
+                <label for="newStationRegion">Регион</label>
+                <div id="newStationRegion">
+                    <div class="input-group select2-bootstrap-append">
+                        <ui-select ng-model="newStation.region" theme="bootstrap">
+                            <ui-select-match placeholder="Выберите регион">{{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices refresh="loadRegions($select.search)"
+                                               repeat="item in regions | filter: $select.search">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
                         <button type="button" ng-click="newStation.region = undefined"
                                 class="btn btn-default">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label for="newStationArea">Район</label>
-            <div id="newStationArea">
-                <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="newStation.area" theme="bootstrap">
-                        <ui-select-match placeholder="Выберите район">{{$select.selected.name}}
-                        </ui-select-match>
-                        <ui-select-choices refresh="loadAreas($select.search)"
-                                           repeat="item in areas | filter: $select.search">
-                            <div ng-bind-html="item.name | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
-                    <span class="input-group-btn">
+        <div class="row">
+            <div class="form-group col-lg-4">
+                <label for="newStationArea">Район</label>
+                <div id="newStationArea">
+                    <div class="input-group select2-bootstrap-append">
+                        <ui-select ng-model="newStation.area" theme="bootstrap">
+                            <ui-select-match placeholder="Выберите район">{{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices refresh="loadAreas($select.search)"
+                                               repeat="item in areas | filter: $select.search">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
                         <button type="button" ng-click="newStation.area = undefined"
                                 class="btn btn-default">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="newStationCity">Город</label>
-            <div id="newStationCity">
-                <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="newStation.city" theme="bootstrap">
-                        <ui-select-match placeholder="Выберите город">{{$select.selected.name}}
-                        </ui-select-match>
-                        <ui-select-choices refresh="loadCities($select.search)"
-                                           repeat="item in cities | filter: $select.search">
-                            <div ng-bind-html="item.name | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
-                    <span class="input-group-btn">
+            <div class="form-group col-lg-4">
+                <label for="newStationCity">Город</label>
+                <div id="newStationCity">
+                    <div class="input-group select2-bootstrap-append">
+                        <ui-select ng-model="newStation.city" theme="bootstrap">
+                            <ui-select-match placeholder="Выберите город">{{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices refresh="loadCities($select.search)"
+                                               repeat="item in cities | filter: $select.search">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
                         <button type="button" ng-click="newStation.city = undefined"
                                 class="btn btn-default">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="newStationPlace">Населенный пункт</label>
-            <div id="newStationPlace">
-                <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="newStation.place" theme="bootstrap">
-                        <ui-select-match placeholder="Выберите нас.пункт">{{$select.selected.name}}
-                        </ui-select-match>
-                        <ui-select-choices refresh="loadPlaces($select.search)"
-                                           repeat="item in places | filter: $select.search">
-                            <div ng-bind-html="item.name | highlight: $select.search"></div>
-                        </ui-select-choices>
-                    </ui-select>
-                    <span class="input-group-btn">
+            <div class="form-group col-lg-4">
+                <label for="newStationPlace">Населенный пункт</label>
+                <div id="newStationPlace">
+                    <div class="input-group select2-bootstrap-append">
+                        <ui-select ng-model="newStation.place" theme="bootstrap">
+                            <ui-select-match placeholder="Выберите нас.пункт">{{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices refresh="loadPlaces($select.search)"
+                                               repeat="item in places | filter: $select.search">
+                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
                         <button type="button" ng-click="newStation.place = undefined"
                                 class="btn btn-default">
                             <span class="glyphicon glyphicon-trash"></span>
                         </button>
                     </span>
+                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 form-group">
+                <label for="newStationOKATO">ОКАТО</label>
+                <input id="newStationOKATO" class="form-control" ng-model="newStation.okato"/>
+            </div>
+            <div class="col-lg-4 form-group">
+                <label for="newStationLatitude">Широта</label>
+                <input id="newStationLatitude" class="form-control" ng-model="newStation.latitude"/>
+            </div>
+            <div class="col-lg-4 form-group">
+                <label for="newStationLongitude">Долгота</label>
+                <input id="newStationLongitude" class="form-control" ng-model="newStation.longitude"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-8 col-lg-4 btn-group">
+                <button class="btn btn-danger pull-right">Создать</button>
             </div>
         </div>
     </form>
 </div>
+
