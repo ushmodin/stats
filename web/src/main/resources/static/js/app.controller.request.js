@@ -3,7 +3,8 @@
     angular
         .module('app')
         .controller('RequestController', ['$scope', '$requests', '$routeParams', RequestController])
-        .controller('RequestExistController', ['$scope', '$dict', '$routeParams', '$location', '$requests', '$stations',  RequestExistController]);
+        .controller('RequestExistController', ['$scope', '$dict', '$routeParams', '$location', '$requests', '$stations',  RequestExistController])
+        .controller('RequestNewController', ['$scope', '$dict', '$routeParams', '$location', '$requests', '$stations',  RequestNewController]);
 
 
 
@@ -96,6 +97,57 @@
         };
     };
 
+    function RequestNewController($scope, $dict, $routeParams, $location, $requests, $stations) {
+        $scope.countries = [];
+        $scope.regions = [];
+        $scope.areas = [];
+        $scope.cities = [];
+        $scope.populatedLocalityTypes = [];
+        $scope.newStation = {};
+
+        $scope.loadPopulatedLocalityTypes = function () {
+            $dict.getPopulatedLocalityTypes().then(function (data) {
+                $scope.populatedLocalityTypes = data;
+            });
+        };
+
+        $scope.loadCountries = function () {
+            $dict.countries().then(function (data) {
+                $scope.countries = data;
+            })
+        };
+
+        $scope.loadRegions = function (name) {
+            var countryId = $scope.newStation.country ? $scope.newStation.country.id : null;
+            $dict.regions(countryId,name).then(function (data) {
+                $scope.regions = data;
+            });
+        };
+
+        $scope.loadAreas = function (name) {
+            var regionId = $scope.newStation.region ? $scope.newStation.region.id : null;
+            $dict.areas(regionId,name).then(function (data) {
+                $scope.areas = data;
+            });
+        };
+
+        $scope.loadCities = function (name) {
+            var regionId = $scope.newStation.region ? $scope.newStation.region.id : null;
+            var areaId = $scope.newStation.area ? $scope.newStation.area.id : null;
+            $dict.places(regionId, areaId, null, name).then(function (data) {
+                $scope.cities = data;
+            });
+        };
+
+        $scope.loadPlaces = function (name) {
+            var regionId = $scope.newStation.region ? $scope.newStation.region.id : null;
+            var areaId = $scope.newStation.area ? $scope.newStation.area.id : null;
+            var cityId = $scope.newStation.city ? $scope.newStation.city.id : null;
+            $dict.places(regionId, areaId, cityId, name).then(function (data) {
+                $scope.places = data;
+            });
+        };
+    }
 })();
 
 
