@@ -147,6 +147,24 @@
                 $scope.places = data;
             });
         };
+
+        $scope.crateNewStation = function () {
+            var areaId = $scope.newStation.area ? $scope.newStation.area.id : null;
+            var cityId = $scope.newStation.city ? $scope.newStation.city.id : null;
+            var placeId = $scope.newStation.place ? $scope.newStation.place.id : null;
+            $requests.newStation({
+                name: $scope.newStation.name,
+                okato: $scope.newStation.okato,
+                latitude: $scope.newStation.latitude,
+                longitude: $scope.newStation.longitude,
+                type: $scope.newStation.type.shortName,
+                areaId: areaId,
+                cityId: cityId,
+                placeId: placeId,
+            }).then(function () {
+                $location.path('/requests');
+            })
+        }
     }
 })();
 

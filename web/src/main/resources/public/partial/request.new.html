@@ -4,7 +4,7 @@
             <div class="form-group col-lg-10">
                 <label for="newStationName">Название</label>
                 <div id="newStationName">
-                    <input class="form-control" ng-model="newStation.name">
+                    <input type="text" class="form-control" ng-model="newStation.name">
                 </div>
             </div>
             <div class="form-group col-lg-2">
@@ -148,7 +148,7 @@
         </div>
         <div class="row">
             <div class="col-lg-offset-8 col-lg-4 btn-group">
-                <button class="btn btn-danger pull-right">Создать</button>
+                <button class="btn btn-danger pull-right" ng-click="crateNewStation()">Создать</button>
             </div>
         </div>
     </form>

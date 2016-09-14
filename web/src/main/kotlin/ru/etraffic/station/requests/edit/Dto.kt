@@ -1,5 +1,6 @@
 package ru.etraffic.station.requests.edit
 
+import java.math.BigDecimal
 import java.util.*
 
 /**
@@ -38,4 +39,16 @@ data class StationFilter (
 data class LinkDto (
         val requestId: Long,
         val stationId: Long
+)
+
+data class NewStationDto (
+        val name: String?,
+        val type: String?,
+        val areaId: Long?,
+        val cityId: Long?,
+        val placeId: Long?,
+        val okato: String?,
+        val latitude: BigDecimal? = null,
+        val longitude: BigDecimal? = null,
+        val requestId: Long? = null
 )

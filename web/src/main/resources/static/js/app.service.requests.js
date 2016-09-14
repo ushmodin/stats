@@ -24,5 +24,13 @@
                 });
             });
         };
+
+        self.newStation = function (model) {
+            return $q(function (accept, reject) {
+                $http.post('api/request/newStation', model).then(function (response) {
+                    accept();
+                });
+            })
+        }
     };
 })();

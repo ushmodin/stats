@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.etraffic.station.jpaContaints
 import ru.etraffic.station.jpaStartWith
-import ru.etraffic.stations.domain.AddrobjTypeRepository
-import ru.etraffic.stations.domain.StationRepository
-import ru.etraffic.stations.domain.StationRequestRepository
+import ru.etraffic.stations.domain.*
 import ru.etraffic.stations.domain.model.Station
+import java.util.*
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Predicate
@@ -23,7 +22,9 @@ import javax.persistence.criteria.Root
 @Transactional
 open class DbService @Autowired constructor(
         val stationRequestRepository: StationRequestRepository,
-        val stationRepository: StationRepository) {
+        val stationRepository: StationRepository,
+        val placeRepository: PlaceRepository,
+        val areaRepository: AreaRepository) {
     open fun request(id: Long) = stationRequestRepository.getOne(id).let {
         StationRequestDto(
                 id = it.id!!,
@@ -51,6 +52,29 @@ open class DbService @Autowired constructor(
         val request = stationRequestRepository.getOne(data.requestId)
         val station = stationRepository.getOne(data.stationId)
         request.station = station
+        stationRequestRepository.save(request)
+    }
+
+    open fun newStation(data: NewStationDto) {
+        val place = data.placeId?.let { placeRepository.getOne(it) }
+        val city =
+                if (place != null && place.city != null) place.city
+                else data.cityId?.let { placeRepository.getOne(it) }
+        val area =
+                if (city != null && city.area != null) city.area
+                else if (place != null && place.area != null) place.area
+                else data.areaId?.let { areaRepository.getOne(it) }
+        var newStation = Station(
+                name = data.name
+                ,type = data.type
+                ,guid = UUID.randomUUID().toString()
+                ,place = place
+                ,city = city
+                ,area = area)
+        newStation = stationRepository.save(newStation)
+
+        val request = stationRequestRepository.getOne(data.requestId)
+        request.station = newStation
         stationRequestRepository.save(request)
     }
 }

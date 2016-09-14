@@ -27,4 +27,10 @@ class Controller @Autowired constructor(val dbService: DbService) {
         dbService.link(data)
         return "OK".success()
     }
+
+    @RequestMapping("newStation")
+    fun newStation(@RequestBody data: NewStationDto): Response<Any> {
+        dbService.newStation(data)
+        return "OK".success()
+    }
 }
