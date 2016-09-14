@@ -9,18 +9,26 @@
         $scope.currentPage = 1;
         $scope.pageSize = 20;
         $scope.filter = {};
+        $scope.loadData = loadData;
 
-        $scope.loadData();
-        $scope.loadHosts();
+        loadData();
+        loadHosts();
 
-        $scope.loadData = function () {
-            $http.post('api/requests/list?page=' + ($scope.currentPage - 1) + '&size=' + ($scope.pageSize), $scope.filter).then(function (response) {
-                $scope.data = response.data.data;
+
+
+        function loadHosts() {
+            $http.post('api/common/hosts').then(function (response) {
+                $scope.hosts = response.data.data;
             })
         };
-        $scope.loadHosts = function () {
-            $http.post('api/requests/hosts').then(function (response) {
-                $scope.hosts = response.data.data;
+        function loadData() {
+            $http.post('api/requests/list', $scope.filter, {
+                params: {
+                    page: $scope.currentPage - 1,
+                    size: $scope.pageSize
+                }
+            }).then(function (response) {
+                $scope.data = response.data.data;
             })
         };
     };

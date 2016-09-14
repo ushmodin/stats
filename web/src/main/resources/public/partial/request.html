@@ -1,181 +1,19 @@
 <div class="row">
     <label class="col-lg-1">Название:</label>
-    <input class=" col-lg-2" ng-model="data.name" disabled/>
+    <input class=" col-lg-2" ng-model="request.name" disabled/>
     <label class="col-lg-1">Регион:</label>
-    <input class=" col-lg-2" ng-model="data.regionName" disabled/>
+    <input class=" col-lg-2" ng-model="request.regionName" disabled/>
     <label class="col-lg-1">ОКАТО:</label>
-    <input class=" col-lg-2" ng-model="data.okato" disabled/>
+    <input class=" col-lg-2" ng-model="request.okato" disabled/>
 </div>
 <br>
 <div class="row">
     <uib-tabset active="activeJustified" justified="true">
         <uib-tab heading="Существующие станции">
-            <div>
-            <table class="table table-hover table-row-cell table-cell col-md-12">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Название</th>
-                    <th>Тип</th>
-                    <th>Страна</th>
-                    <th>Регион</th>
-                    <th>Район</th>
-                    <th>Город</th>
-                    <th>Нас.пункт</th>
-                    <th>ОКАТО</th>
-                </tr>
-                <tr>
-                    <th></th>
-                    <th><input class="form-control" ng-model="stationFilter.name"></th>
-                    <th><input class="form-control" ng-model="stationFilter.type"></th>
-                    <th>
-                        <div class="input-group select2-bootstrap-append">
-                            <ui-select ng-model="stationFilter.country" ng-change="loadStations()">
-                                <ui-select-match placeholder="Выберите страну">{{$select.selected.name}}
-                                </ui-select-match>
-                                <ui-select-choices repeat="item in countries | filter: $select.search">
-                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                </ui-select-choices>
-                            </ui-select>
-                            <span class="input-group-btn" ng-show="stationFilter.country">
-                                <button type="button" ng-click="stationFilter.country = undefined"
-                                        class="btn btn-default">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="input-group select2-bootstrap-append">
-                            <ui-select ng-model="stationFilter.region" theme="bootstrap" ng-change="loadStations()">
-                                <ui-select-match placeholder="Выберите регион">{{$select.selected.name}}
-                                </ui-select-match>
-                                <ui-select-choices refresh="loadRegions($select.search)" repeat="item in regions | filter: $select.search">
-                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                </ui-select-choices>
-                            </ui-select>
-                            <span class="input-group-btn" ng-show="stationFilter.region">
-                                <button type="button" ng-click="stationFilter.region = undefined"
-                                        class="btn btn-default">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="input-group select2-bootstrap-append">
-                            <ui-select ng-model="stationFilter.area" theme="bootstrap" ng-change="loadStations()">
-                                <ui-select-match placeholder="Выберите район">{{$select.selected.name}}
-                                </ui-select-match>
-                                <ui-select-choices refresh="loadAreas($select.search)" repeat="item in areas | filter: $select.search">
-                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                </ui-select-choices>
-                            </ui-select>
-                            <span class="input-group-btn" ng-show="stationFilter.area">
-                                <button type="button" ng-click="stationFilter.area = undefined" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="input-group select2-bootstrap-append">
-                            <ui-select ng-model="stationFilter.city" ng-change="loadStations()">
-                                <ui-select-match placeholder="Выберите город">{{$select.selected.name}}
-                                </ui-select-match>
-                                <ui-select-choices refresh="loadCities($select.search)" repeat="item in cities | filter: $select.search">
-                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                </ui-select-choices>
-                            </ui-select>
-                            <span class="input-group-btn" ng-show="stationFilter.city">
-                                <button type="button" ng-click="stationFilter.city = undefined" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </th>
-                    <th>
-                        <div class="input-group select2-bootstrap-append">
-                            <ui-select ng-model="stationFilter.place" ng-change="loadStations()">
-                                <ui-select-match placeholder="Выберите нас.пункт">{{$select.selected.name}}
-                                </ui-select-match>
-                                <ui-select-choices refresh="loadPlaces($select.search)" repeat="item in places | filter: $select.search">
-                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                </ui-select-choices>
-                            </ui-select>
-                            <span class="input-group-btn" ng-show="stationFilter.place">
-                                <button type="button" ng-click="stationFilter.place = undefined"
-                                        class="btn btn-default">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </th>
-                    <th><input class="form-control"
-                               ng-model="stationFilter.okato"
-                               ng-change="loadStations()"
-                               ng-model-options="{updateOn : 'change blur'}"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in stations.content">
-                    <td><button ng-click="link(item.id)">Привязать</button></td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.type}}</td>
-                    <td>{{item.country}}</td>
-                    <td>{{item.region}}</td>
-                    <td>{{item.area}}</td>
-                    <td>{{item.city}}</td>
-                    <td>{{item.place}}</td>
-                    <td>{{item.okato}}</td>
-                </tr>
-                </tbody>
-            </table>
-            <ul uib-pagination
-                total-items="stations.totalPages"
-                ng-model="stationFilter.currentPage"
-                max-size="stationFilter.pageSize"
-                class="pagination-sm"
-                boundary-link-numbers="true"
-                ng-change="loadStations()"
-                previous-text="<<"
-                next-text=">>"
-                rotate="false"></ul>
-            </div>
+            <ng-include src="'partial/request.exist.html'"/>
         </uib-tab>
         <uib-tab heading="Добавление станции">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="newStationName">Название</label>
-                    <div id="newStationName">
-                        <input class="form-control" ng-model="newStation.name" >
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="addrObjType">Тип</label>
-                    <div id="addrObjType">
-                        <ui-select ng-model="newStation.type">
-                            <ui-select-match placeholder="Выберите тип нас.пункта">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="item in populatedLocalityTypes | filter: $select.search">
-                                <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                <small ng-bind-html="item.shortName | highlight: $select.search"></small>
-                            </ui-select-choices>
-                        </ui-select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="newStationRegion">Регион</label>
-                    <div id="newStationRegion">
-                        <ui-select ng-model="newStation.region" theme="bootstrap">
-                            <ui-select-match placeholder="Выберите регион">{{$select.selected.name}}
-                            </ui-select-match>
-                            <ui-select-choices refresh="loadRegions($select.search)" repeat="item in regions | filter: $select.search">
-                                <div ng-bind-html="item.name | highlight: $select.search"></div>
-                            </ui-select-choices>
-                        </ui-select>
-                    </div>
-                </div>
-            </form>
+            <ng-include src="'partial/request.new.html'"/>
         </uib-tab>
     </uib-tabset>
 </div>
