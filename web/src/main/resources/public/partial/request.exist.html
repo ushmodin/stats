@@ -1,8 +1,8 @@
 <div ng-controller="RequestExistController">
-    <table class="table table-hover table-striped table-row-cell table-cell col-md-12">
+    <table class="table table-hover table-striped">
         <thead>
         <tr>
-            <th>ID</th>
+            <th></th>
             <th>Название</th>
             <th>Тип</th>
             <th>Страна</th>
@@ -19,7 +19,8 @@
                 <div class="input-group select2-bootstrap-append">
                     <ui-select ng-model="stationFilter.type" ng-change="loadStations()">
                         <ui-select-match placeholder="">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices refresh="loadPopulatedLocalityTypes()" repeat="item in populatedLocalityTypes | filter: $select.search">
+                        <ui-select-choices refresh="loadPopulatedLocalityTypes()"
+                                           repeat="item in populatedLocalityTypes | filter: $select.search">
                             <div ng-bind-html="item.name | highlight: $select.search"></div>
                             <small ng-bind-html="item.shortName | highlight: $select.search"></small>
                         </ui-select-choices>
@@ -36,7 +37,8 @@
                 <div class="input-group select2-bootstrap-append">
                     <ui-select ng-model="stationFilter.country" ng-change="loadStations()">
                         <ui-select-match placeholder="">{{$select.selected.name}}</ui-select-match>
-                        <ui-select-choices refresh="loadCountries()" repeat="item in countries | filter: $select.search">
+                        <ui-select-choices refresh="loadCountries()"
+                                           repeat="item in countries | filter: $select.search">
                             <div ng-bind-html="item.name | highlight: $select.search"></div>
                         </ui-select-choices>
                     </ui-select>
@@ -125,7 +127,9 @@
         <tbody>
         <tr ng-repeat="item in stations.content">
             <td>
-                <button class="btn btn-default" ng-click="link(item.id)">Привязать</button>
+                <button class="btn btn-success" ng-click="link(item.id)" title="Привязать">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </button>
             </td>
             <td>{{item.name}}</td>
             <td>{{item.type}}</td>
