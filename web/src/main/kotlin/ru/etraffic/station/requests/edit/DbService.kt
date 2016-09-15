@@ -29,7 +29,10 @@ open class DbService @Autowired constructor(
         StationRequestDto(
                 id = it.id!!,
                 name = it.name!!,
-                regionName = it.regionName!!,
+                countryName = it.countryName?:null,
+                regionName = it.regionName?:null,
+                areaName = it.areaName?:null,
+                cityName = it.cityName?:null,
                 okato = it.okato!!)
     }
 

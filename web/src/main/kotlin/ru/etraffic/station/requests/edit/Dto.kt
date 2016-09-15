@@ -9,7 +9,10 @@ import java.util.*
 data class StationRequestDto (
     val id: Long,
     val name: String,
-    val regionName: String,
+    val countryName: String?,
+    val regionName: String?,
+    val areaName: String?,
+    val cityName: String?,
     val okato: String
 )
 
