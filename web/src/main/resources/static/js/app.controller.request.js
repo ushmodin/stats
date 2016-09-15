@@ -73,6 +73,32 @@
             });
         };
 
+        $scope.countryChanged = function () {
+            $scope.stationFilter.region = null;
+            $scope.stationFilter.area = null;
+            $scope.stationFilter.city = null;
+            $scope.stationFilter.place = null;
+            loadStations();
+        };
+
+        $scope.regionChanged = function () {
+            $scope.stationFilter.area = null;
+            $scope.stationFilter.city = null;
+            $scope.stationFilter.place = null;
+            loadStations();
+        };
+
+        $scope.areaChanged = function () {
+            $scope.stationFilter.city = null;
+            $scope.stationFilter.place = null;
+            loadStations();
+        };
+
+        $scope.cityChanged = function () {
+            $scope.stationFilter.place = null;
+            loadStations();
+        };
+
         $scope.link = function (stationId) {
             $requests.link($routeParams.id, stationId).then(function () {
                 $location.path('/requests');
@@ -147,6 +173,33 @@
                 $scope.places = data;
             });
         };
+
+        $scope.countryChanged = function () {
+            $scope.newStation.region = null;
+            $scope.newStation.area = null;
+            $scope.newStation.city = null;
+            $scope.newStation.place = null;
+            loadStations();
+        };
+
+        $scope.regionChanged = function () {
+            $scope.newStation.area = null;
+            $scope.newStation.city = null;
+            $scope.newStation.place = null;
+            loadStations();
+        };
+
+        $scope.areaChanged = function () {
+            $scope.newStation.city = null;
+            $scope.newStation.place = null;
+            loadStations();
+        };
+
+        $scope.cityChanged = function () {
+            $scope.newStation.place = null;
+            loadStations();
+        };
+
 
         $scope.crateNewStation = function () {
             var areaId = $scope.newStation.area ? $scope.newStation.area.id : null;

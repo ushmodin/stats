@@ -2,7 +2,7 @@
     <form>
         <div class="row">
             <div class="form-group col-lg-10">
-                <label for="newStationName">Название</label>
+                <label for="newStationName">Название1</label>
                 <div id="newStationName">
                     <input type="text" class="form-control" ng-model="newStation.name">
                 </div>
@@ -26,7 +26,7 @@
                 <label for="newStationCountry">Страна</label>
                 <div id="newStationCountry">
                     <div class="input-group select2-bootstrap-append">
-                        <ui-select ng-model="newStation.country" theme="bootstrap">
+                        <ui-select ng-model="newStation.country" theme="bootstrap" ng-change="countryChanged()">
                             <ui-select-match placeholder="Выберите страну">
                                 {{$select.selected.name}}
                             </ui-select-match>
@@ -49,7 +49,7 @@
                 <label for="newStationRegion">Регион</label>
                 <div id="newStationRegion">
                     <div class="input-group select2-bootstrap-append">
-                        <ui-select ng-model="newStation.region" theme="bootstrap">
+                        <ui-select ng-model="newStation.region" theme="bootstrap" ng-change="regionChanged()">
                             <ui-select-match placeholder="Выберите регион">{{$select.selected.name}}
                             </ui-select-match>
                             <ui-select-choices refresh="loadRegions($select.search)"
@@ -72,7 +72,7 @@
                 <label for="newStationArea">Район</label>
                 <div id="newStationArea">
                     <div class="input-group select2-bootstrap-append">
-                        <ui-select ng-model="newStation.area" theme="bootstrap">
+                        <ui-select ng-model="newStation.area" theme="bootstrap" ng-change="areaChanged()">
                             <ui-select-match placeholder="Выберите район">{{$select.selected.name}}
                             </ui-select-match>
                             <ui-select-choices refresh="loadAreas($select.search)"
@@ -93,7 +93,7 @@
                 <label for="newStationCity">Город</label>
                 <div id="newStationCity">
                     <div class="input-group select2-bootstrap-append">
-                        <ui-select ng-model="newStation.city" theme="bootstrap">
+                        <ui-select ng-model="newStation.city" theme="bootstrap" ng-change="cityChanged()">
                             <ui-select-match placeholder="Выберите город">{{$select.selected.name}}
                             </ui-select-match>
                             <ui-select-choices refresh="loadCities($select.search)"
