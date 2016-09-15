@@ -63,9 +63,22 @@ data class Region (
         var name: String? = null,
 
         @Column(name = "reg_guid")
-        var guid: String? = null
+        var guid: String? = null,
+
+        @ManyToOne
+        @JoinColumn(name = "reg_parent_ref")
+        var parent: Region? = null,
+
+        @Column(name = "reg_rt_ref")
+        var type: Int? = null
 )
 
+data class FullRegionInfo (
+        val country: Region? = null
+        ,val region: Region? = null
+        ,val area: Region? = null
+        ,val city: Region? = null
+)
 
 @Entity
 @Table(name = "hosts")

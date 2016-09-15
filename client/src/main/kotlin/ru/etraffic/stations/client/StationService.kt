@@ -1,5 +1,6 @@
 package ru.etraffic.stations.client
 
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.scheduling.annotation.Scheduled
@@ -55,27 +56,80 @@ class StationService @Autowired constructor(@Value("\${station.server}") val ser
 open class DbService @Autowired constructor(val stationRepository: StationRepository,
                                             val hostRepository: HostRepository,
                                             val regionRepository: RegionRepository) {
+    private val log = LoggerFactory.getLogger(DbService::class.java)
 
     open fun getHost() = hostRepository.findByState(State.A)
 
     open fun saveHost(host: Host) = hostRepository.save(host)
 
-    open fun getNotLinkedStation() = stationRepository.findByGuidNull().map { StationDto(
-                id = it.id!!.toString()
+    open fun getNotLinkedStation() = stationRepository.findByGuidNull().map {
+        val fullRegionInfo = it.region?.fullInfo()
+
+        StationDto(
+                hostId = it.id!!.toString()
                 ,name = it.name
                 ,description = it.description
                 ,okato = it.kladr?.okato
                 ,latitude = it.latitude
                 ,longitude = it.longitude
-                ,regionName = it.region?.name
-                ,regionGuid = it.region?.guid
-        )}
+                ,countryGuid = fullRegionInfo?.country?.guid
+                ,countryName = fullRegionInfo?.country?.name
+                ,regionName = fullRegionInfo?.region?.name
+                ,regionGuid = fullRegionInfo?.region?.guid
+                ,areaGuid = fullRegionInfo?.area?.guid
+                ,areaName = fullRegionInfo?.area?.name
+                ,cityGuid = fullRegionInfo?.city?.guid
+                ,cityName = fullRegionInfo?.city?.name
+        )
+    }
 
     open fun updateStation(stations: List<StationDto>) {
-        val guidMap = stations.map { it.id!!.toLong() to it.guid }.toMap()
-        val localStations = stationRepository.findByIdIn(stations.map { it.id!!.toLong() })
+        val guidMap = stations.map { it.hostId!!.toLong() to it }.toMap()
+        val localStations = stationRepository.findByIdIn(guidMap.keys.toList())
         localStations.forEach {
-            it.guid = guidMap[it.id]
+            val stationDto = guidMap[it.id]!!
+            it.guid = stationDto.guid
+            val fullRegionInfo = it.region?.fullInfo()
+            if (fullRegionInfo != null) {
+                if (fullRegionInfo.city != null
+                        && fullRegionInfo.city.guid == null
+                        && stationDto.cityGuid != null) {
+                    fullRegionInfo.city.guid = stationDto.cityGuid
+                    regionRepository.save(fullRegionInfo.city)
+                    fullRegionInfo.city.apply {
+                        log.debug("Update region {}:{} with guid {}", id, name, guid)
+                    }
+                }
+                if (fullRegionInfo.area != null
+                        && fullRegionInfo.area.guid == null
+                        && stationDto.areaGuid != null) {
+                    fullRegionInfo.area.guid = stationDto.areaGuid
+                    regionRepository.save(fullRegionInfo.area)
+                    fullRegionInfo.area.apply {
+                        log.debug("Update region {}:{} with guid {}", id, name, guid)
+                    }
+                }
+                if (fullRegionInfo.region != null
+                        && fullRegionInfo.region.guid == null
+                        && stationDto.regionGuid != null) {
+                    fullRegionInfo.region.guid = stationDto.regionGuid
+                    regionRepository.save(fullRegionInfo.region)
+                    fullRegionInfo.region.apply {
+                        log.debug("Update region {}:{} with guid {}", id, name, guid)
+                    }
+                }
+                if (fullRegionInfo.country != null
+                        && fullRegionInfo.country.guid == null
+                        && stationDto.countryGuid != null) {
+                    fullRegionInfo.country.guid = stationDto.countryGuid
+                    regionRepository.save(fullRegionInfo.country)
+                    fullRegionInfo.country.apply {
+                        log.debug("Update region {}:{} with guid {}", id, name, guid)
+                    }
+                }
+            }
+
+
         }
         stationRepository.save(localStations)
     }

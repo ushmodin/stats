@@ -64,7 +64,7 @@ open class ApiControllerTest {
         val req = AuthRequest(host = auth.data.hostGuid, data = GuidReq(stations = (1..10).map { StationDto(
                 name = RandomStringUtils.randomAlphabetic(10)
                 ,description = RandomStringUtils.randomAlphanumeric(10)
-                ,id = UUID.randomUUID().toString()
+                , hostId = UUID.randomUUID().toString()
                 ,okato = RandomStringUtils.randomNumeric(11)
                 ,regionName = RandomStringUtils.randomAlphabetic(10)
                 ,latitude = BigDecimal.valueOf(RandomUtils.nextDouble(0.0, 360.0))
@@ -89,7 +89,7 @@ open class ApiControllerTest {
         val req = AuthRequest(host = auth.data.hostGuid, data = GuidReq(stations = (1..10).map { StationDto(
                 name = RandomStringUtils.randomAlphabetic(10)
                 ,description = RandomStringUtils.randomAlphanumeric(10)
-                ,id = UUID.randomUUID().toString()
+                , hostId = UUID.randomUUID().toString()
                 ,okato = RandomStringUtils.randomNumeric(11)
                 ,regionName = RandomStringUtils.randomAlphabetic(10)
                 ,latitude = BigDecimal.valueOf(RandomUtils.nextDouble(0.0, 360.0))
@@ -100,7 +100,7 @@ open class ApiControllerTest {
         Assert.assertTrue(rsp.data!!.stations.isEmpty())
 
         val host = avsHostRepository.findByGuid(auth.data.hostGuid)
-        val stationRequests = stationRequestRepository.findByHostAndExtIdIn(host.get(), listOf(req.data!!.stations[0].id!!))
+        val stationRequests = stationRequestRepository.findByOwnerAndHostIdIn(host.get(), listOf(req.data!!.stations[0].hostId!!))
         stationRequests[0].station = stationRepository.findAll(PageRequest(1, 1)).content[0]
         stationRequestRepository.save(stationRequests[0])
 

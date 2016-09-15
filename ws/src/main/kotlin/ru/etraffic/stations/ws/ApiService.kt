@@ -37,20 +37,26 @@ open class ApiService @Autowired constructor(
 
         val host = getHost(hostGuid)
 
-        val extIds = data.stations.map { it.id!! }
+        val extIds = data.stations.map { it.hostId!! }
 
-        val registered = stationRequestRepository.findByHostAndExtIdIn(host, extIds)
+        val registered = stationRequestRepository.findByOwnerAndHostIdIn(host, extIds)
 
         stationRequestRepository.save(data.stations
-                .filterNot {newStation-> registered.any {readyStation-> readyStation.extId!!.equals(newStation.id)  } }
+                .filterNot {newStation-> registered.any {readyStation-> readyStation.hostId.equals(newStation.hostId)  } }
                 .map {StationRequest(
-                            host = host
-                            , extId = it.id
+                            owner = host
+                            , hostId = it.hostId
                             , name = it.name
                             , description = it.description
                             , okato = it.okato
+                            , countryGuid = it.countryGuid
+                            , countryName = it.countryName
                             , regionName = it.regionName
                             , regionGuid = it.regionGuid
+                            , areaGuid = it.areaGuid
+                            , areaName = it.areaName
+                            , cityGuid = it.cityGuid
+                            , cityName = it.cityName
                             , latitude = it.latitude
                             , longitude = it.longitude
                     )
@@ -59,10 +65,16 @@ open class ApiService @Autowired constructor(
 
         return GuidRsp(stations = registered.filter { it.station != null }.map { StationDto(
                 guid = it.station!!.guid
-                ,id = it.extId
+                ,hostId = it.hostId
                 ,name = it.station!!.name
-                ,regionName = it.station!!.region!!.name
-                ,regionGuid = it.station!!.region!!.guid
+                ,countryGuid = it.station!!.region?.country?.id?.toString()
+                ,countryName = it.station!!.region?.country?.longName
+                ,regionName = it.station!!.region?.name
+                ,regionGuid = it.station!!.region?.guid
+                ,areaGuid = it.station!!.area?.guid
+                ,areaName = it.station!!.area?.name
+                ,cityGuid = it.station!!.city?.guid
+                ,cityName = it.station!!.city?.name
                 ,description = it.description
                 ,okato = it.station!!.place?.okato
                 ,latitude = it.station!!.latitude

@@ -9,5 +9,5 @@ import ru.etraffic.stations.domain.model.StationRequest
  * Created by nikolay on 29.08.16.
  */
 interface StationRequestRepository : JpaRepository<StationRequest, Long>, JpaSpecificationExecutor<StationRequest> {
-    fun findByHostAndExtIdIn(host: AvsHost, extIds: List<String>): List<StationRequest>
+    fun findByOwnerAndHostIdIn(host: AvsHost, extIds: List<String>): List<StationRequest>
 }

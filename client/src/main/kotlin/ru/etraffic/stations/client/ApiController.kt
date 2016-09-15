@@ -26,7 +26,7 @@ class ApiController @Autowired constructor(val stationService: StationService) {
 
     @ExceptionHandler(Throwable::class)
     fun error(ex: Throwable): Response<Any> {
-        log.error(null)
+        log.error(null, ex)
         return Response<Any>(success = false, error = Error(code = "ERROR", message = ex.message))
     }
 }
