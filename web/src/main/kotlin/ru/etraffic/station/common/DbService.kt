@@ -24,21 +24,21 @@ open class DbService @Autowired constructor(
         val addrobjTypeRepository: AddrobjTypeRepository) {
 
     open fun hosts() = hostRepository.findAll().map {
-        HostDto(id = it.id!!, name = it.name!!, inn = it.inn!!)
+        it.toDto()
     }
 
     open fun countries() = countryRepository.findByStatus(EntityStatus.A).map {
-        CountryDto(id = it.id!!, name = it.longName!!)
+        it.toDto()
     }
 
     open fun regions(countryId: Optional<Long>, name: Optional<String>, pageable: Pageable)
             = regionRepository.findByCountryIdAndStatus(countryId, EntityStatus.A, name.map { it.toLowerCase().jpaContaints() }, pageable).map {
-        RegionDto(id = it.id!!, guid = it.guid!!, name = it.name!!)
+            it.toDto()
     }
 
     open fun areas(regionId: Optional<Long>, name: Optional<String>, pageable: Pageable)
             = areaRepository.findByRegionIdAndStatus(regionId,EntityStatus.A, name.map { it.toLowerCase().jpaContaints() },pageable).map {
-        AreaDto(id = it.id!!, guid = it.guid!!, name = it.name!!)
+        it.toDto()
     }
 
     open fun places(areaId: Optional<Long>,
@@ -47,7 +47,7 @@ open class DbService @Autowired constructor(
                     name: Optional<String>,
                     pageable: Pageable)
             = placeRepository.findByAreaIdAndRegionIdAndStatus(areaId, regionId, cityId, EntityStatus.A, name.map { it.toLowerCase().jpaContaints() }, pageable).map {
-        PlaceDto(id = it.id!!, guid = it.guid!!, name = it.name!!)
+        it.toDto()
     }
 
     open fun stations(areaId: Optional<Long>,
@@ -57,7 +57,7 @@ open class DbService @Autowired constructor(
                       name: Optional<String>,
                       pageable: Pageable)
             = stationRepository.findByAreaIdAndRegionIdAndPlaceIdAndStatus(regionId, areaId, cityId, placeId, EntityStatus.A, name.map { it.toLowerCase().jpaContaints() }, pageable).map {
-        StationDto(id = it.id!!, guid = it.guid!!, name = it.name!!)
+        it.toDto()
     }
 
 

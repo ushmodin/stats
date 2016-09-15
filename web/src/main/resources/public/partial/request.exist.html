@@ -52,11 +52,12 @@
             </th>
             <th>
                 <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="stationFilter.region" theme="bootstrap" ng-change="regionChanged()">
+                    <ui-select ng-model="stationFilter.region" theme="bootstrap" ng-change="regionChanged($select.selected)">
                         <ui-select-match placeholder="">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices refresh="loadRegions($select.search)"
                                            repeat="item in regions | filter: $select.search">
                             <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            <small ng-bind-html="item.country.name | highlight: $select.search"></small>
                         </ui-select-choices>
                     </ui-select>
                     <span class="input-group-btn" ng-show="stationFilter.region">
@@ -69,11 +70,12 @@
             </th>
             <th>
                 <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="stationFilter.area" theme="bootstrap" ng-change="areaChanged()">
+                    <ui-select ng-model="stationFilter.area" theme="bootstrap" ng-change="areaChanged($select.selected)">
                         <ui-select-match placeholder="">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices refresh="loadAreas($select.search)"
                                            repeat="item in areas | filter: $select.search">
                             <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            <small ng-bind-html="item.region.name | highlight: $select.search"></small>
                         </ui-select-choices>
                     </ui-select>
                     <span class="input-group-btn" ng-show="stationFilter.area">
@@ -86,11 +88,12 @@
             </th>
             <th>
                 <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="stationFilter.city" ng-change="cityChanged()">
+                    <ui-select ng-model="stationFilter.city" ng-change="cityChanged($select.selected)">
                         <ui-select-match placeholder="">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices refresh="loadCities($select.search)"
                                            repeat="item in cities | filter: $select.search">
                             <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            <small ng-bind-html="item.region.name | highlight: $select.search"></small>
                         </ui-select-choices>
                     </ui-select>
                             <span class="input-group-btn" ng-show="stationFilter.city">
@@ -103,11 +106,12 @@
             </th>
             <th>
                 <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="stationFilter.place" ng-change="loadStations()">
+                    <ui-select ng-model="stationFilter.place" ng-change="placeChanged($select.selected)">
                         <ui-select-match placeholder="">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices refresh="loadPlaces($select.search)"
                                            repeat="item in places | filter: $select.search">
                             <div ng-bind-html="item.name | highlight: $select.search"></div>
+                            <small ng-bind-html="(item.city.item || item.area.name || item.region.name) | highlight: $select.search"></small>
                         </ui-select-choices>
                     </ui-select>
                     <span class="input-group-btn" ng-show="stationFilter.place">

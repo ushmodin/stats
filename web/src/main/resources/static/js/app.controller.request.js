@@ -81,21 +81,35 @@
             loadStations();
         };
 
-        $scope.regionChanged = function () {
+        $scope.regionChanged = function (region) {
+            $scope.stationFilter.country = region.country;
             $scope.stationFilter.area = null;
             $scope.stationFilter.city = null;
             $scope.stationFilter.place = null;
             loadStations();
         };
 
-        $scope.areaChanged = function () {
+        $scope.areaChanged = function (area) {
+            $scope.stationFilter.country = area.region.country;
+            $scope.stationFilter.region = area.region;
             $scope.stationFilter.city = null;
             $scope.stationFilter.place = null;
             loadStations();
         };
 
-        $scope.cityChanged = function () {
+        $scope.cityChanged = function (city) {
+            $scope.stationFilter.country = city.region.country;
+            $scope.stationFilter.region = city.region;
+            $scope.stationFilter.area = city.area;
             $scope.stationFilter.place = null;
+            loadStations();
+        };
+
+        $scope.placeChanged = function (place) {
+            $scope.stationFilter.country = place.region.country;
+            $scope.stationFilter.region = place.region;
+            $scope.stationFilter.area = place.area;
+            $scope.stationFilter.city = place.city;
             loadStations();
         };
 
@@ -182,23 +196,37 @@
             loadStations();
         };
 
-        $scope.regionChanged = function () {
+        $scope.regionChanged = function (region) {
+            $scope.newStation.country = region.country;
             $scope.newStation.area = null;
             $scope.newStation.city = null;
             $scope.newStation.place = null;
             loadStations();
         };
 
-        $scope.areaChanged = function () {
+        $scope.areaChanged = function (area) {
+            $scope.newStation.country = area.region.country;
+            $scope.region = area.region;
             $scope.newStation.city = null;
             $scope.newStation.place = null;
             loadStations();
         };
 
-        $scope.cityChanged = function () {
+        $scope.cityChanged = function (city) {
+            $scope.newStation.country = city.region.country;
+            $scope.newStation.region = city.region;
+            $scope.newStation.area = city.area;
             $scope.newStation.place = null;
             loadStations();
         };
+
+        $scope.placeChanged = function (place) {
+            $scope.newStation.country = place.region.country;
+            $scope.newStation.region = place.region;
+            $scope.newStation.area = place.area;
+            $scope.newStation.city = place.city;
+            loadStations();
+        }
 
 
         $scope.crateNewStation = function () {
