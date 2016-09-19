@@ -33,7 +33,7 @@ open class DbService @Autowired constructor(
                 regionName = it.regionName?:null,
                 areaName = it.areaName?:null,
                 cityName = it.cityName?:null,
-                okato = it.okato!!)
+                okato = it.okato?:null)
     }
 
     open fun stations(filter: StationFilter, pageable: Pageable)
