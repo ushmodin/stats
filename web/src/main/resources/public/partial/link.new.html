@@ -1,0 +1,135 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Создать станцию по запросу #{{request.id}}?</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="panel panel-default panel-info">
+        <div class="panel-heading">Информация от автовокзала</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label id="requestNameLbl">Название</label>
+                        <input class="form-control" ng-model="request.name" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>ОКАТО</label>
+                        <input class="form-control" readonly ng-model="request.okato"/>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-group">
+                        <label>Широта</label>
+                        <input class="form-control" readonly ng-model="request.latitude"/>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-group">
+                        <label>Долгода</label>
+                        <input class="form-control" readonly ng-model="request.logitude"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label id="requestCountryLbl">Страна</label>
+                        <input class="form-control" ng-model="request.countryName" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label id="requestRegionLbl">Регион</label>
+                        <input class="form-control" ng-model="request.regionName" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label id="requestAreaLbl">Район</label>
+                        <input class="form-control" ng-model="request.areaName" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Город</label>
+                        <input class="form-control" ng-model="request.cityName" readonly/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default panel-info">
+        <div class="panel-heading">Информация о станции</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label>Название</label>
+                        <input class="form-control" ng-model="newStation.name" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>ОКАТО</label>
+                        <input class="form-control" readonly ng-model="newStation.okato"/>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-group">
+                        <label>Широта</label>
+                        <input class="form-control" readonly ng-model="newStation.latitude"/>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <div class="form-group">
+                        <label>Долгода</label>
+                        <input class="form-control" readonly ng-model="newStation.logitude"/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Тип</label>
+                        <input class="form-control" readonly ng-model="newStation.type.shortName"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Страна</label>
+                        <input class="form-control" ng-model="newStation.country.name" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Регион</label>
+                        <input class="form-control" ng-model="newStation.region.name" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Район</label>
+                        <input class="form-control" ng-model="newStation.area.name" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Город</label>
+                        <input class="form-control" ng-model="newStation.city.name" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label>Нас.пункт</label>
+                        <input class="form-control" readonly ng-model="newStation.place.name"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="createOk(request,station)">Создать</button>
+    <button class="btn btn-warning" type="button" ng-click="createCancel()">Отмена</button>
+</div>

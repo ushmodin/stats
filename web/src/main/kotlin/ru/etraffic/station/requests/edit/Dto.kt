@@ -53,5 +53,5 @@ data class NewStationDto (
         val okato: String?,
         val latitude: BigDecimal? = null,
         val longitude: BigDecimal? = null,
-        val requestId: Long? = null
+        val requestId: Long?
 )

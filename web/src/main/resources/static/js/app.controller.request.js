@@ -3,8 +3,8 @@
     angular
         .module('app')
         .controller('RequestController', ['$scope', '$requests', '$routeParams', RequestController])
-        .controller('RequestExistController', ['$scope', '$dict', '$routeParams', '$location', '$requests', '$stations',  RequestExistController])
-        .controller('RequestNewController', ['$scope', '$dict', '$routeParams', '$location', '$requests', '$stations',  RequestNewController]);
+        .controller('RequestExistController', ['$scope', '$dict', '$routeParams', '$location', '$requests', '$stations', '$uibModal',  RequestExistController])
+        .controller('RequestNewController', ['$scope', '$dict', '$routeParams', '$location', '$requests', '$stations', '$uibModal',  RequestNewController]);
 
 
 
@@ -15,7 +15,7 @@
         });
     };
 
-    function RequestExistController($scope, $dict, $routeParams, $location, $requests, $stations) {
+    function RequestExistController($scope, $dict, $routeParams, $location, $requests, $stations, $uibModal) {
         $scope.countries = [];
         $scope.regions = [];
         $scope.areas = [];
@@ -113,11 +113,29 @@
             loadStations();
         };
 
-        $scope.link = function (stationId) {
-            $requests.link($routeParams.id, stationId).then(function () {
-                $location.path('/requests');
+        $scope.link = function (station) {
+            $scope.station = station;
+
+            $uibModal.open({
+                templateUrl: 'partial/link.exist.html',
+                controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
+                    $scope.linkOk = function () {
+                        $uibModalInstance.close();
+                    };
+                    $scope.linkCancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                }],
+                scope: $scope,
+                size: 'lg',
+            }).result.then(function () {
+                $requests.link($scope.request.id, station.id).then(function () {
+                    $location.path('/requests');
+                });
             });
+
         };
+
 
 
         function loadStations() {
@@ -137,7 +155,7 @@
         };
     };
 
-    function RequestNewController($scope, $dict, $routeParams, $location, $requests, $stations) {
+    function RequestNewController($scope, $dict, $routeParams, $location, $requests, $stations, $uibModal) {
         $scope.countries = [];
         $scope.regions = [];
         $scope.areas = [];
@@ -193,7 +211,6 @@
             $scope.newStation.area = null;
             $scope.newStation.city = null;
             $scope.newStation.place = null;
-            loadStations();
         };
 
         $scope.regionChanged = function (region) {
@@ -201,7 +218,6 @@
             $scope.newStation.area = null;
             $scope.newStation.city = null;
             $scope.newStation.place = null;
-            loadStations();
         };
 
         $scope.areaChanged = function (area) {
@@ -209,7 +225,6 @@
             $scope.region = area.region;
             $scope.newStation.city = null;
             $scope.newStation.place = null;
-            loadStations();
         };
 
         $scope.cityChanged = function (city) {
@@ -217,7 +232,6 @@
             $scope.newStation.region = city.region;
             $scope.newStation.area = city.area;
             $scope.newStation.place = null;
-            loadStations();
         };
 
         $scope.placeChanged = function (place) {
@@ -225,26 +239,44 @@
             $scope.newStation.region = place.region;
             $scope.newStation.area = place.area;
             $scope.newStation.city = place.city;
-            loadStations();
-        }
+        };
 
 
         $scope.crateNewStation = function () {
-            var areaId = $scope.newStation.area ? $scope.newStation.area.id : null;
-            var cityId = $scope.newStation.city ? $scope.newStation.city.id : null;
-            var placeId = $scope.newStation.place ? $scope.newStation.place.id : null;
-            $requests.newStation({
-                name: $scope.newStation.name,
-                okato: $scope.newStation.okato,
-                latitude: $scope.newStation.latitude,
-                longitude: $scope.newStation.longitude,
-                type: $scope.newStation.type.shortName,
-                areaId: areaId,
-                cityId: cityId,
-                placeId: placeId,
-            }).then(function () {
-                $location.path('/requests');
-            })
+            $uibModal.open({
+                templateUrl: 'partial/link.new.html',
+                controller: ['$uibModalInstance', function ($uibModalInstance) {
+                    $scope.createOk = function () {
+                        $uibModalInstance.close();
+                    };
+                    $scope.createCancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                }],
+                scope: $scope,
+                size: 'lg'
+            }).result.then(function () {
+                var areaId = $scope.newStation.area ? $scope.newStation.area.id : null;
+                var cityId = $scope.newStation.city ? $scope.newStation.city.id : null;
+                var placeId = $scope.newStation.place ? $scope.newStation.place.id : null;
+
+                $requests.newStation({
+                    name: $scope.newStation.name,
+                    okato: $scope.newStation.okato,
+                    latitude: $scope.newStation.latitude,
+                    longitude: $scope.newStation.longitude,
+                    type: $scope.newStation.type.shortName,
+                    areaId: areaId,
+                    cityId: cityId,
+                    placeId: placeId,
+                    requestId: $routeParams.id
+                }).then(function () {
+                    $location.path('/requests');
+                });
+            });
+
+
+
         }
     }
 })();
