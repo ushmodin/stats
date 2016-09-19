@@ -13,7 +13,7 @@ data class StationRequestDto (
     val regionName: String?,
     val areaName: String?,
     val cityName: String?,
-    val okato: String
+    val okato: String?
 )
 
 data class StationDto (

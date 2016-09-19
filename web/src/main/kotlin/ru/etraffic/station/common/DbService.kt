@@ -41,12 +41,34 @@ open class DbService @Autowired constructor(
         it.toDto()
     }
 
+    open fun cities(areaId: Optional<Long>,
+                    regionId: Optional<Long>,
+                    name: Optional<String>,
+                    pageable: Pageable)
+            = placeRepository.findByFilter(
+            areaId
+            , regionId
+            , Optional.empty()
+            , EntityStatus.A
+            , name.map { it.toLowerCase().jpaContaints() }
+            , Optional.of("г")
+            , pageable).map {
+        it.toDto()
+    }
+
     open fun places(areaId: Optional<Long>,
                     regionId: Optional<Long>,
                     cityId: Optional<Long>,
                     name: Optional<String>,
                     pageable: Pageable)
-            = placeRepository.findByAreaIdAndRegionIdAndStatus(areaId, regionId, cityId, EntityStatus.A, name.map { it.toLowerCase().jpaContaints() }, pageable).map {
+            = placeRepository.findByFilter(
+            areaId
+            , regionId
+            , cityId
+            , EntityStatus.A
+            , name.map { it.toLowerCase().jpaContaints() }
+            , Optional.empty()
+            , pageable).map {
         it.toDto()
     }
 

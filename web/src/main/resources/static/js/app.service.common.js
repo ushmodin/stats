@@ -50,6 +50,19 @@
                 });
             });
         };
+        self.cities = function (regionId, areaId, name) {
+            return $q(function (accept, reject) {
+                $http.get('api/common/cities', {
+                    params: {
+                        regionId: regionId,
+                        areaId: areaId,
+                        name: name
+                    }
+                }).then(function (response) {
+                    accept(response.data.data);
+                });
+            });
+        };
         self.getPopulatedLocalityTypes = function (regionId, name) {
             return $q(function (accept, reject) {
                 $http.get('api/common/populatedLocalityTypes').then(function (response) {

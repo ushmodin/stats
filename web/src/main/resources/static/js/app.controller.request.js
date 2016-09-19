@@ -59,7 +59,7 @@
         $scope.loadCities = function (name) {
             var regionId = $scope.stationFilter.region ? $scope.stationFilter.region.id : null;
             var areaId = $scope.stationFilter.area ? $scope.stationFilter.area.id : null;
-            $dict.places(regionId, areaId, null, name).then(function (data) {
+            $dict.cities(regionId, areaId, name).then(function (data) {
                 $scope.cities = data;
             });
         };
@@ -192,7 +192,7 @@
         $scope.loadCities = function (name) {
             var regionId = $scope.newStation.region ? $scope.newStation.region.id : null;
             var areaId = $scope.newStation.area ? $scope.newStation.area.id : null;
-            $dict.places(regionId, areaId, null, name).then(function (data) {
+            $dict.cities(regionId, areaId, name).then(function (data) {
                 $scope.cities = data;
             });
         };

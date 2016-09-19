@@ -19,11 +19,13 @@ interface PlaceRepository: JpaRepository<Place, Long> {
                                          "and (p.city.id = ?3 or ?3 is null)" +
                                          "and (p.status = ?4) " +
                                          "and (?5 is null or lower(p.name) like ?5) " +
+                                         "and (?6 is null or lower(p.type) = ?6) " +
                                          "order by p.name")
-    fun findByAreaIdAndRegionIdAndStatus(areaId: Optional<Long>,
-                                         regionId: Optional<Long>,
-                                         cityId: Optional<Long>,
-                                         status: EntityStatus,
-                                         name: Optional<String>,
-                                         pageable: Pageable): List<Place>
+    fun findByFilter(areaId: Optional<Long>,
+                     regionId: Optional<Long>,
+                     cityId: Optional<Long>,
+                     status: EntityStatus,
+                     name: Optional<String>,
+                     type: Optional<String>,
+                     pageable: Pageable): List<Place>
 }

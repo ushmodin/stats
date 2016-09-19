@@ -27,6 +27,13 @@ class Controller @Autowired constructor(val dbService: DbService) {
               name: Optional<String>,
               pageable: Pageable) = dbService.areas(regionId, name, pageable).success()
 
+    @RequestMapping("cities")
+    fun cities(regionId: Optional<Long>,
+               areaId: Optional<Long>,
+               name: Optional<String>,
+               pageable: Pageable)
+            = dbService.cities(regionId, areaId, name, pageable).success()
+
     @RequestMapping("places")
     fun places(regionId: Optional<Long>,
                areaId: Optional<Long>,
