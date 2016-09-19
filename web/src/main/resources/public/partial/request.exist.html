@@ -70,7 +70,12 @@
             </th>
             <th>
                 <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="stationFilter.area" theme="bootstrap" ng-change="areaChanged($select.selected)">
+                    <ui-select
+                            ng-model="stationFilter.area"
+                            theme="bootstrap"
+                            ng-change="areaChanged($select.selected)"
+                            ng-disabled="stationFilter.city"
+                    >
                         <ui-select-match placeholder="">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices refresh="loadAreas($select.search)"
                                            repeat="item in areas | filter: $select.search">
@@ -88,7 +93,10 @@
             </th>
             <th>
                 <div class="input-group select2-bootstrap-append">
-                    <ui-select ng-model="stationFilter.city" ng-change="cityChanged($select.selected)">
+                    <ui-select
+                            ng-model="stationFilter.city"
+                            ng-change="cityChanged($select.selected)"
+                            ng-disabled="stationFilter.area">
                         <ui-select-match placeholder="">{{$select.selected.name}}</ui-select-match>
                         <ui-select-choices refresh="loadCities($select.search)"
                                            repeat="item in cities | filter: $select.search">

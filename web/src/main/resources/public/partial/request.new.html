@@ -73,7 +73,11 @@
                 <label for="newStationArea">Район</label>
                 <div id="newStationArea">
                     <div class="input-group select2-bootstrap-append">
-                        <ui-select ng-model="newStation.area" theme="bootstrap" ng-change="areaChanged($select.selected)">
+                        <ui-select
+                                ng-model="newStation.area"
+                                theme="bootstrap"
+                                ng-change="areaChanged($select.selected)"
+                                ng-disabled="newStation.city">
                             <ui-select-match placeholder="Выберите район">{{$select.selected.name}}
                             </ui-select-match>
                             <ui-select-choices refresh="loadAreas($select.search)"
@@ -95,7 +99,11 @@
                 <label for="newStationCity">Город</label>
                 <div id="newStationCity">
                     <div class="input-group select2-bootstrap-append">
-                        <ui-select ng-model="newStation.city" theme="bootstrap" ng-change="cityChanged($select.selected)">
+                        <ui-select
+                                ng-model="newStation.city"
+                                theme="bootstrap"
+                                ng-change="cityChanged($select.selected)"
+                                ng-disabled="newStation.area">
                             <ui-select-match placeholder="Выберите город">{{$select.selected.name}}
                             </ui-select-match>
                             <ui-select-choices refresh="loadCities($select.search)"
