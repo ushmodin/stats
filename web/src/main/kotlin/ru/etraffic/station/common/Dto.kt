@@ -55,7 +55,7 @@ data class AddrObjTypeDto (
 
 fun AvsHost.toDto() = HostDto(id = this.id, name = this.name, inn = this.inn )
 
-fun Country.toDto() = CountryDto(id = this.id, name = this.longName)
+fun Country.toDto() = CountryDto(id = this.id, name = this.shortName)
 
 fun Region.toDto() = RegionDto(
         id = this.id
