@@ -33,4 +33,8 @@ class Controller @Autowired constructor(val dbService: DbService) {
         dbService.newStation(data)
         return "OK".success()
     }
+
+    @RequestMapping("/{id}/stations/like")
+    fun searchLike(@PathVariable id: Long, pageable: Pageable)
+            = dbService.searchLike(id, pageable).success()
 }

@@ -1,4 +1,4 @@
-package ru.etraffic.stations.domain
+package ru.etraffic.stations
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories

@@ -13,7 +13,11 @@
             <th>ОКАТО</th>
         </tr>
         <tr>
-            <th></th>
+            <th>
+                <button class="btn btn-success" ng-click="searchLike()" title="Найти похожие">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </th>
             <th><input class="form-control" ng-model="stationFilter.name" ng-change="loadStations()"></th>
             <th>
                 <div class="input-group select2-bootstrap-append">

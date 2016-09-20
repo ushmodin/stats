@@ -1,10 +1,12 @@
 package ru.etraffic.station.requests.edit
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ru.etraffic.station.common.toDto
 import ru.etraffic.station.jpaContaints
 import ru.etraffic.station.jpaStartWith
 import ru.etraffic.stations.domain.*
@@ -79,6 +81,35 @@ open class DbService @Autowired constructor(
         val request = stationRequestRepository.getOne(data.requestId)
         request.station = newStation
         stationRequestRepository.save(request)
+    }
+
+    open fun searchLike(id: Long, pageable: Pageable): Page<StationDto> {
+        val request = stationRequestRepository.getOne(id)
+        return stationRepository.searchLike(
+                name = request.name
+                , okato = request.okato
+                , countryName = request.countryName
+                , countryGuid = request.countryGuid
+                , regionName = request.regionName
+                , regionGuid = request.regionName
+                , areaName = request.areaName
+                , areaGuid = request.areaGuid
+                , cityName = request.cityName
+                , cityGuid = request.cityGuid
+                , page = pageable
+        ).map {
+            StationDto(
+                    id= it.id!!,
+                    name = it.name?:"",
+                    type = it.type?:"",
+                    country = it.region?.country?.shortName?:"",
+                    region = it.region?.name?:"",
+                    area = it.area?.name?:"",
+                    city = it.city?.name?:"",
+                    place = it.place?.name?:"",
+                    okato = it.place?.okato?:""
+            )
+        }
     }
 }
 

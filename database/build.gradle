@@ -21,6 +21,7 @@ repositories {
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.hibernate:hibernate-search-orm:5.5.4.Final"
     compile "org.jetbrains.kotlin:kotlin-stdlib:1.0.1"
     testCompile "org.springframework.boot:spring-boot-starter-test"
     testCompile "org.postgresql:postgresql:9.3-1101-jdbc3"

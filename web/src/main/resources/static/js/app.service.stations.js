@@ -19,5 +19,18 @@
                 });
             });
         }
+
+        self.searchLike = function (requestId, page, pageSize) {
+            return $q(function (accept, reject) {
+                $http.get('api/request/' + requestId + '/stations/like', {
+                    params: {
+                        page: page,
+                        size: pageSize,
+                    }
+                }).then(function (response) {
+                    accept(response.data.data);
+                })
+            })
+        }
     };
 })();

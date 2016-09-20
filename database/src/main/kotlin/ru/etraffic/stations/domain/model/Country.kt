@@ -1,5 +1,6 @@
 package ru.etraffic.stations.domain.model
 
+import org.hibernate.search.annotations.Field
 import javax.persistence.*
 
 /**
@@ -16,18 +17,22 @@ data class Country (
     var id: Long? = null,
 
     @Column(name = "short_name", nullable = false, length = 128)
+    @Field
     var shortName: String? = null,
 
     @Column(name = "long_name", length = 128)
+    @Field
     var longName: String? = null,
 
     @Column(name = "short_eng_name", nullable = false, length = 128)
     var shortEngName: String? = null,
 
     @Column(name = "code2", nullable = false, length = 2, unique = true)
+    @Field
     var iso2: String? = null,
 
     @Column(name = "code3", nullable = false, length = 3, unique = true)
+    @Field
     var iso3: String? = null,
 
     @Enumerated(javax.persistence.EnumType.STRING)

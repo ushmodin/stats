@@ -1,5 +1,6 @@
 package ru.etraffic.stations.domain.model
 
+import org.hibernate.search.annotations.Field
 import java.util.*
 import javax.persistence.*
 
@@ -15,14 +16,17 @@ data class Place (
         @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
         var id: Long? = null,
         @Column(name = "name", length = 120, nullable = false)
+        @Field
         var name: String? = null,
         @Column(name = "typ", length = 10, nullable = false)
         var type: String? = null,
         @Column(name = "code", length = 2, nullable = false, unique = true)
         var code: String? = null,
+        @Field(norms = org.hibernate.search.annotations.Norms.NO)
         @Column(name = "guid", length = 36, nullable = false, unique = true)
         var guid: String? = null,
         @Column(name = "okato", length = 11, nullable = false, unique = true)
+        @Field
         var okato: String? = null,
         @ManyToOne(fetch = javax.persistence.FetchType.LAZY, optional = false)
         @JoinColumn(name = "region_id")

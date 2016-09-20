@@ -136,6 +136,15 @@
 
         };
 
+        $scope.searchLike = function () {
+            $stations.searchLike($scope.request.id
+                , $scope.stationFilter.currentPage - 1
+                , $scope.stationFilter.pageSize)
+                .then(function (data) {
+                    $scope.stations = data;
+                })
+        };
+
 
 
         function loadStations() {
